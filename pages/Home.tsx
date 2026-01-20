@@ -14,9 +14,9 @@ const QueueCard: React.FC<{ queue: QueueInfo }> = ({ queue }) => {
         {queue.label}
       </div>
       
-      <div className="flex flex-col items-center justify-center mb-3 mt-1">
-        <span className="text-[10px] text-slate-400 font-medium">Sedang Dilayani</span>
-        <span className="text-3xl font-black text-slate-800 tracking-tighter">{queue.current}</span>
+      <div className="flex flex-col items-center justify-center min-h-[70px] w-full mb-3 mt-1">
+        <span className="text-[10px] text-slate-400 font-bold uppercase tracking-wider leading-none mb-1">Sedang Dilayani</span>
+        <span className="text-4xl font-black text-slate-800 tracking-tighter leading-none">{queue.current}</span>
       </div>
       
       <div className="w-full h-px bg-slate-50 mb-3"></div>
@@ -24,11 +24,11 @@ const QueueCard: React.FC<{ queue: QueueInfo }> = ({ queue }) => {
       <div className="flex justify-between w-full px-2 mb-2">
         <div className="text-left">
           <p className="text-[9px] text-slate-400 uppercase font-bold">Terakhir</p>
-          <p className="text-sm font-bold text-slate-600">{queue.last}</p>
+          <p className="text-sm font-bold text-slate-600 leading-none">{queue.last}</p>
         </div>
         <div className="text-right">
           <p className="text-[9px] text-slate-400 uppercase font-bold">Sisa</p>
-          <p className="text-sm font-bold text-blue-600">{remaining}</p>
+          <p className="text-sm font-bold text-blue-600 leading-none">{remaining}</p>
         </div>
       </div>
 
@@ -72,7 +72,7 @@ const Home: React.FC<{ onSelectService: (category: ServiceCategory) => void }> =
       <div className="bg-gradient-to-br from-[#003B7B] to-[#002B5B] rounded-2xl p-8 text-white shadow-xl relative overflow-hidden">
         <div className="relative z-10">
           <h2 className="text-2xl font-bold mb-2">Selamat Datang!</h2>
-          <p className="text-blue-100 text-sm opacity-90 leading-relaxed max-w-[80%]">
+          <p className="text-blue-100 text-sm opacity-90 leading-relaxed pr-2">
             Akses layanan perpajakan KPP Pratama Jayapura dengan lebih cepat dan mudah langsung dari genggaman Anda.
           </p>
         </div>
@@ -126,7 +126,7 @@ const Home: React.FC<{ onSelectService: (category: ServiceCategory) => void }> =
           <i className="fa-solid fa-bullhorn text-amber-600"></i>
           <h4 className="text-xs font-bold text-amber-900 uppercase tracking-wider">Informasi Terbaru</h4>
         </div>
-        <ul className="space-y-4">
+        <ul className="space-y-2">
           <li className="flex items-start space-x-2">
             <div className="w-1.5 h-1.5 rounded-full bg-amber-400 mt-1.5 shrink-0"></div>
             <p className="text-[11px] text-amber-800 leading-relaxed">
