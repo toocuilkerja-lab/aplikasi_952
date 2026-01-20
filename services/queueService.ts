@@ -1,9 +1,9 @@
+
 import { QueueInfo } from '../types';
 
 /**
  * DATABASE: GOOGLE SHEETS
  * SPREADSHEET_ID: 1GMzLoSCc2ROpzRmeXbbOkwrS8nsJzF6mLJHXwEz8grg
- * Pengaturan: Pastikan Sheet "Anyone with the link can view"
  */
 const SPREADSHEET_ID = '1GMzLoSCc2ROpzRmeXbbOkwrS8nsJzF6mLJHXwEz8grg';
 
@@ -22,14 +22,19 @@ const formatQueueNumber = (val: any, prefix: string): string => {
   return `${prefix}${num.toString().padStart(3, '0')}`;
 };
 
-/**
- * Mengambil data secara real-time dari Public Google Sheet (Read-Only)
- */
 const fetchFromPublicSheet = async (): Promise<QueueInfo[] | null> => {
+  // Hanya fetch jika online untuk menghindari error berisik
+  if (!navigator.onLine) return null;
+
   try {
-    const url = `https://docs.google.com/spreadsheets/d/${SPREADSHEET_ID}/gviz/tq?tqx=out:json`;
-    const response = await fetch(url);
-    if (!response.ok) throw new Error("Gagal mengambil data dari Google Sheets");
+    const url = `https://docs.google.com/spreadsheets/d/${SPREADSHEET_ID}/gviz/tq?tqx=out:json&t=${new Date().getTime()}`;
+    const controller = new AbortController();
+    const id = setTimeout(() => controller.abort(), 8000);
+
+    const response = await fetch(url, { signal: controller.signal });
+    clearTimeout(id);
+
+    if (!response.ok) return null;
     
     const text = await response.text();
     const jsonStr = text.substring(text.indexOf('{'), text.lastIndexOf('}') + 1);
@@ -54,7 +59,7 @@ const fetchFromPublicSheet = async (): Promise<QueueInfo[] | null> => {
       };
     });
   } catch (e) {
-    console.error("Queue Sync Error:", e);
+    // Silent catch - biarkan logic di fetchQueueData yang menangani fallback ke cache
     return null;
   }
 };
@@ -70,7 +75,6 @@ export const fetchQueueData = async (): Promise<QueueInfo[]> => {
 };
 
 export const updateSingleQueueSheet = async (id: string, type: 'current' | 'last'): Promise<boolean> => {
-  // Update lokal agar UI tetap responsif
   const currentCache = localStorage.getItem('jyp_queue_cache');
   const currentData = currentCache ? JSON.parse(currentCache) : INITIAL_DATA;
   const updated = currentData.map((q: any) => {

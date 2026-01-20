@@ -1,12 +1,13 @@
-const CACHE_NAME = 'layanan952-v2';
+
+const CACHE_NAME = 'layanan952-v3';
 const ASSETS = [
   '/',
   '/index.html',
-  '/manifest.json'
+  '/manifest.json',
+  '/index.tsx'
 ];
 
 self.addEventListener('install', (event) => {
-  console.log('SW: Installing...');
   self.skipWaiting();
   event.waitUntil(
     caches.open(CACHE_NAME).then((cache) => {
@@ -16,7 +17,6 @@ self.addEventListener('install', (event) => {
 });
 
 self.addEventListener('activate', (event) => {
-  console.log('SW: Activated');
   event.waitUntil(
     caches.keys().then((keys) => {
       return Promise.all(
@@ -24,10 +24,20 @@ self.addEventListener('activate', (event) => {
       );
     })
   );
+  return self.clients.claim();
 });
 
 self.addEventListener('fetch', (event) => {
-  // Fetch handler wajib ada agar browser mengizinkan tombol "Install" muncul
+  // Untuk data API/Sheets, coba jaringan dulu, fallback ke cache
+  if (event.request.url.includes('google.com/spreadsheets')) {
+    event.respondWith(
+      fetch(event.request)
+        .catch(() => caches.match(event.request))
+    );
+    return;
+  }
+
+  // Untuk aset statis, coba cache dulu, fallback ke jaringan
   event.respondWith(
     caches.match(event.request).then((response) => {
       return response || fetch(event.request);

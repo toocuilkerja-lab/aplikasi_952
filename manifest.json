@@ -1,9 +1,11 @@
+
 {
   "short_name": "Layanan952",
   "name": "Layanan952 - KPP Pratama Jayapura",
   "description": "Layanan Digital Perpajakan KPP Pratama Jayapura",
-  "id": "/?source=pwa",
-  "start_url": "/?source=pwa",
+  "id": "/index.html",
+  "start_url": "/index.html?utm_source=pwa",
+  "scope": "/",
   "display": "standalone",
   "background_color": "#002B5B",
   "theme_color": "#002B5B",
