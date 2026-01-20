@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 
 const InstallPrompt: React.FC = () => {
@@ -19,7 +18,7 @@ const InstallPrompt: React.FC = () => {
       e.preventDefault();
       setDeferredPrompt(e);
       
-      // Paksa tampilkan (abaikan localStorage untuk sementara agar user bisa install ulang jika hilang)
+      // Paksa tampilkan
       setIsVisible(true);
     };
 
@@ -65,8 +64,7 @@ const InstallPrompt: React.FC = () => {
           {/* Ikon Landmark sesuai permintaan (Navy Blue Background, White Icon) */}
           <div className="w-14 h-14 bg-[#002B5B] rounded-2xl flex items-center justify-center text-white shrink-0 shadow-lg border-2 border-blue-50/10">
             <svg className="w-8 h-8" viewBox="0 0 512 512" fill="currentColor">
-              <path d="M256 128l144 80v176H112V208l144-80zm0-48L48 200v224h416V200L256 80z" />
-              <path d="M216 264h80v112h-80z" />
+              <path d="M256 64l224 112v32H32v-32L256 64zM64 448v-32h384v32H64zm320-208v144h-32V240h32zm-96 0v144h-32V240h32zm-96 0v144h-32V240h32zm-96 0v144h-32V240h32z" />
             </svg>
           </div>
           
