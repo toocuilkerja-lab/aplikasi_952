@@ -1,31 +1,25 @@
+
 {
-  "short_name": "Layanan952",
-  "name": "Layanan952 - KPP Pratama Jayapura",
-  "description": "Layanan Digital Perpajakan KPP Pratama Jayapura",
-  "id": "/?source=pwa",
-  "start_url": "/?source=pwa",
+  "name": "Layanan Digital - KPP Pratama Jayapura",
+  "short_name": "Pajak Jayapura",
+  "description": "Aplikasi Pelayanan Perpajakan Resmi KPP Pratama Jayapura",
+  "start_url": "/",
   "display": "standalone",
   "background_color": "#002B5B",
   "theme_color": "#002B5B",
   "orientation": "portrait",
   "icons": [
     {
-      "src": "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'%3E%3Crect width='512' height='512' fill='%23002B5B'/%3E%3Cpath d='M256 64l224 112v32H32v-32L256 64zM64 448v-32h384v32H64zm320-208v144h-32V240h32zm-96 0v144h-32V240h32zm-96 0v144h-32V240h32zm-96 0v144h-32V240h32z' fill='white'/%3E%3C/svg%3E",
+      "src": "https://api.dicebear.com/7.x/initials/svg?seed=KPP&backgroundColor=002b5b&fontFamily=Arial&fontWeight=700",
       "sizes": "192x192",
       "type": "image/svg+xml",
-      "purpose": "any"
+      "purpose": "any maskable"
     },
     {
-      "src": "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'%3E%3Crect width='512' height='512' fill='%23002B5B'/%3E%3Cpath d='M256 64l224 112v32H32v-32L256 64zM64 448v-32h384v32H64zm320-208v144h-32V240h32zm-96 0v144h-32V240h32zm-96 0v144h-32V240h32zm-96 0v144h-32V240h32z' fill='white'/%3E%3C/svg%3E",
+      "src": "https://api.dicebear.com/7.x/initials/svg?seed=KPP&backgroundColor=002b5b&fontFamily=Arial&fontWeight=700",
       "sizes": "512x512",
       "type": "image/svg+xml",
-      "purpose": "any"
-    },
-    {
-      "src": "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'%3E%3Crect width='512' height='512' fill='%23002B5B'/%3E%3Cpath d='M256 64l224 112v32H32v-32L256 64zM64 448v-32h384v32H64zm320-208v144h-32V240h32zm-96 0v144h-32V240h32zm-96 0v144h-32V240h32zm-96 0v144h-32V240h32z' fill='white'/%3E%3C/svg%3E",
-      "sizes": "512x512",
-      "type": "image/svg+xml",
-      "purpose": "maskable"
+      "purpose": "any maskable"
     }
   ]
 }
