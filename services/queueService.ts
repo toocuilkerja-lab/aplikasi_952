@@ -1,4 +1,3 @@
-
 import { QueueInfo } from '../types';
 
 /**
@@ -27,21 +26,10 @@ const formatQueueNumber = (val: any, prefix: string): string => {
  * Mengambil data secara real-time dari Public Google Sheet (Read-Only)
  */
 const fetchFromPublicSheet = async (): Promise<QueueInfo[] | null> => {
-  // Check internet connectivity first to avoid 'Failed to fetch' error noise
-  if (!window.navigator.onLine) return null;
-
   try {
-    // Adding a cache-busting timestamp to prevent stale data
-    const url = `https://docs.google.com/spreadsheets/d/${SPREADSHEET_ID}/gviz/tq?tqx=out:json&t=${new Date().getTime()}`;
-    
-    // Using a controller with timeout for better UX
-    const controller = new AbortController();
-    const timeoutId = setTimeout(() => controller.abort(), 8000);
-
-    const response = await fetch(url, { signal: controller.signal });
-    clearTimeout(timeoutId);
-
-    if (!response.ok) return null;
+    const url = `https://docs.google.com/spreadsheets/d/${SPREADSHEET_ID}/gviz/tq?tqx=out:json`;
+    const response = await fetch(url);
+    if (!response.ok) throw new Error("Gagal mengambil data dari Google Sheets");
     
     const text = await response.text();
     const jsonStr = text.substring(text.indexOf('{'), text.lastIndexOf('}') + 1);
@@ -66,7 +54,7 @@ const fetchFromPublicSheet = async (): Promise<QueueInfo[] | null> => {
       };
     });
   } catch (e) {
-    // Suppress console error for expected network failures, just return null for graceful fallback
+    console.error("Queue Sync Error:", e);
     return null;
   }
 };
@@ -75,16 +63,14 @@ export const fetchQueueData = async (): Promise<QueueInfo[]> => {
   const publicData = await fetchFromPublicSheet();
   if (publicData) {
     localStorage.setItem('jyp_queue_cache', JSON.stringify(publicData));
-    localStorage.setItem('jyp_queue_last_sync', new Date().toISOString());
     return publicData;
   }
-  
   const cached = localStorage.getItem('jyp_queue_cache');
   return cached ? JSON.parse(cached) : INITIAL_DATA;
 };
 
 export const updateSingleQueueSheet = async (id: string, type: 'current' | 'last'): Promise<boolean> => {
-  // Update lokal agar UI tetap responsif (Optimistic UI)
+  // Update lokal agar UI tetap responsif
   const currentCache = localStorage.getItem('jyp_queue_cache');
   const currentData = currentCache ? JSON.parse(currentCache) : INITIAL_DATA;
   const updated = currentData.map((q: any) => {
