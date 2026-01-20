@@ -24,6 +24,7 @@ export interface QueueInfo {
   current: string;
   last: string;
   color: string;
+  location?: string;
 }
 
 // Added View enum to fix error: Module '"../types"' has no exported member 'View'

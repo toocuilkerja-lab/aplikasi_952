@@ -8,10 +8,10 @@ import { QueueInfo } from '../types';
 const SPREADSHEET_ID = '1GMzLoSCc2ROpzRmeXbbOkwrS8nsJzF6mLJHXwEz8grg';
 
 export const INITIAL_DATA: QueueInfo[] = [
-  { id: 'A', label: 'Permohonan', description: '', current: 'A000', last: 'A000', color: 'bg-blue-600' },
-  { id: 'B', label: 'Coretax', description: '', current: 'B000', last: 'B000', color: 'bg-emerald-600' },
-  { id: 'C', label: 'Helpdesk', description: '', current: 'C000', last: 'C000', color: 'bg-orange-500' },
-  { id: 'D', label: 'Lainnya', description: '', current: 'D000', last: 'D000', color: 'bg-purple-600' }
+  { id: 'A', label: 'Permohonan', description: '', current: 'A000', last: 'A000', color: 'bg-blue-600', location: '-' },
+  { id: 'B', label: 'Coretax', description: '', current: 'B000', last: 'B000', color: 'bg-emerald-600', location: '-' },
+  { id: 'C', label: 'Helpdesk', description: '', current: 'C000', last: 'C000', color: 'bg-orange-500', location: '-' },
+  { id: 'D', label: 'Lainnya', description: '', current: 'D000', last: 'D000', color: 'bg-purple-600', location: '-' }
 ];
 
 const formatQueueNumber = (val: any, prefix: string): string => {
@@ -49,6 +49,7 @@ const fetchFromPublicSheet = async (): Promise<QueueInfo[] | null> => {
         description: '',
         last: formatQueueNumber(cols[2]?.v, id),
         current: formatQueueNumber(cols[3]?.v, id),
+        location: cols[4]?.v?.toString() || '-',
         color: INITIAL_DATA.find(d => d.id === id)?.color || 'bg-slate-600'
       };
     });
@@ -70,7 +71,8 @@ export const fetchQueueData = async (): Promise<QueueInfo[]> => {
 
 export const updateSingleQueueSheet = async (id: string, type: 'current' | 'last'): Promise<boolean> => {
   // Update lokal agar UI tetap responsif
-  const currentData = JSON.parse(localStorage.getItem('jyp_queue_cache') || JSON.stringify(INITIAL_DATA));
+  const currentCache = localStorage.getItem('jyp_queue_cache');
+  const currentData = currentCache ? JSON.parse(currentCache) : INITIAL_DATA;
   const updated = currentData.map((q: any) => {
     if (q.id === id) {
       const val = q[type];

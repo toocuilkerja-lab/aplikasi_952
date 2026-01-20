@@ -21,7 +21,7 @@ const QueueCard: React.FC<{ queue: QueueInfo }> = ({ queue }) => {
       
       <div className="w-full h-px bg-slate-50 mb-3"></div>
       
-      <div className="flex justify-between w-full px-2">
+      <div className="flex justify-between w-full px-2 mb-2">
         <div className="text-left">
           <p className="text-[9px] text-slate-400 uppercase font-bold">Terakhir</p>
           <p className="text-sm font-bold text-slate-600">{queue.last}</p>
@@ -31,6 +31,14 @@ const QueueCard: React.FC<{ queue: QueueInfo }> = ({ queue }) => {
           <p className="text-sm font-bold text-blue-600">{remaining}</p>
         </div>
       </div>
+
+      {queue.location && queue.location !== '-' && (
+        <div className="w-full pt-2 border-t border-slate-50">
+          <p className="text-[9px] text-slate-400 font-medium italic">
+            Lokasi : <span className="font-bold text-slate-600 not-italic">{queue.location}</span>
+          </p>
+        </div>
+      )}
     </div>
   );
 };
