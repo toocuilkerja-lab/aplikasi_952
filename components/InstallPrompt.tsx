@@ -6,53 +6,64 @@ const InstallPrompt: React.FC = () => {
   const [isIOS, setIsIOS] = useState(false);
 
   useEffect(() => {
-    // Deteksi iOS
+    // 1. Deteksi iOS (karena iOS tidak mendukung beforeinstallprompt)
     const userAgent = window.navigator.userAgent.toLowerCase();
     const isIphone = /iphone|ipad|ipod/.test(userAgent);
     const isStandalone = (window.navigator as any).standalone || window.matchMedia('(display-mode: standalone)').matches;
     
-    setIsIOS(isIphone && !isStandalone);
-
-    const handleBeforeInstallPrompt = (e: any) => {
-      // Mencegah browser menampilkan prompt bawaan
-      e.preventDefault();
-      setDeferredPrompt(e);
-      
-      // Paksa tampilkan
-      setIsVisible(true);
-    };
-
-    window.addEventListener('beforeinstallprompt', handleBeforeInstallPrompt);
-
-    // Untuk iOS, munculkan panduan setelah 2 detik
     if (isIphone && !isStandalone) {
-      const timer = setTimeout(() => {
-        setIsVisible(true);
-      }, 2000);
+      setIsIOS(true);
+      // Tampilkan prompt untuk iOS setelah jeda singkat
+      const timer = setTimeout(() => setIsVisible(true), 3000);
       return () => clearTimeout(timer);
     }
 
+    // 2. Deteksi Android/Chrome (beforeinstallprompt)
+    const handleBeforeInstallPrompt = (e: any) => {
+      // Mencegah browser menampilkan prompt bawaan segera
+      e.preventDefault();
+      // Simpan event agar bisa dipicu nanti
+      setDeferredPrompt(e);
+      // Munculkan UI kustom kita
+      setIsVisible(true);
+      console.log('PWA: beforeinstallprompt event fired and captured');
+    };
+
+    const handleAppInstalled = () => {
+      console.log('PWA: App was installed successfully');
+      setIsVisible(false);
+      setDeferredPrompt(null);
+    };
+
+    window.addEventListener('beforeinstallprompt', handleBeforeInstallPrompt);
+    window.addEventListener('appinstalled', handleAppInstalled);
+
     return () => {
       window.removeEventListener('beforeinstallprompt', handleBeforeInstallPrompt);
+      window.removeEventListener('appinstalled', handleAppInstalled);
     };
   }, []);
 
   const handleInstallClick = async () => {
-    if (!deferredPrompt) return;
+    if (!deferredPrompt) {
+      console.warn('PWA: No deferred prompt available');
+      return;
+    }
     
-    setIsVisible(false);
+    // Tampilkan prompt sistem browser
     deferredPrompt.prompt();
     
+    // Tunggu pilihan user
     const { outcome } = await deferredPrompt.userChoice;
-    console.log(`User response: ${outcome}`);
+    console.log(`PWA: User choice outcome: ${outcome}`);
+    
+    // Reset deferredPrompt karena hanya bisa digunakan sekali
     setDeferredPrompt(null);
+    setIsVisible(false);
   };
 
   const handleDismiss = () => {
     setIsVisible(false);
-    // Simpan status ditolak agar tidak mengganggu terus-menerus
-    localStorage.setItem('pwa_install_dismissed', 'true');
-    localStorage.setItem('pwa_last_prompt_time', new Date().getTime().toString());
   };
 
   if (!isVisible) return null;
@@ -61,7 +72,6 @@ const InstallPrompt: React.FC = () => {
     <div className="fixed bottom-24 left-4 right-4 z-[99] animate-slideUp">
       <div className="bg-white rounded-[28px] shadow-[0_20px_60px_-15px_rgba(0,0,0,0.3)] border border-slate-100 p-5 flex flex-col space-y-4">
         <div className="flex items-center space-x-4">
-          {/* Ikon Landmark sesuai permintaan (Navy Blue Background, White Icon) */}
           <div className="w-14 h-14 bg-[#002B5B] rounded-2xl flex items-center justify-center text-white shrink-0 shadow-lg border-2 border-blue-50/10">
             <svg className="w-8 h-8" viewBox="0 0 512 512" fill="currentColor">
               <path d="M256 64l224 112v32H32v-32L256 64zM64 448v-32h384v32H64zm320-208v144h-32V240h32zm-96 0v144h-32V240h32zm-96 0v144h-32V240h32zm-96 0v144h-32V240h32z" />
@@ -71,7 +81,7 @@ const InstallPrompt: React.FC = () => {
           <div className="flex-1">
             <h4 className="text-[16px] font-black text-[#002B5B] leading-tight">Install Layanan952</h4>
             <p className="text-[11px] text-slate-500 mt-0.5 leading-relaxed font-medium">
-              Akses cepat layanan kantor pajak Jayapura langsung dari layar utama HP Anda.
+              Pasang aplikasi di layar utama untuk akses layanan lebih cepat dan stabil.
             </p>
           </div>
           
@@ -90,7 +100,7 @@ const InstallPrompt: React.FC = () => {
                <span className="text-[9px] font-black uppercase tracking-tighter">Share</span>
             </div>
             <p className="text-[11px] text-blue-900 font-semibold leading-snug">
-              Klik tombol <span className="text-blue-600">'Share'</span> di Safari, lalu pilih <span className="text-blue-600">'Add to Home Screen'</span>.
+              Klik tombol <span className="text-blue-600">'Share'</span> di bagian bawah Safari, lalu pilih <span className="text-blue-600">'Add to Home Screen'</span>.
             </p>
           </div>
         ) : (
@@ -103,7 +113,8 @@ const InstallPrompt: React.FC = () => {
             </button>
             <button 
               onClick={handleInstallClick}
-              className="flex-[2] bg-[#002B5B] text-white py-3.5 rounded-2xl text-xs font-black shadow-xl shadow-blue-900/20 active:scale-95 transition-all flex items-center justify-center space-x-2"
+              disabled={!deferredPrompt}
+              className="flex-[2] bg-[#002B5B] text-white py-3.5 rounded-2xl text-xs font-black shadow-xl shadow-blue-900/20 active:scale-95 transition-all flex items-center justify-center space-x-2 disabled:opacity-50"
             >
               <i className="fa-solid fa-download"></i>
               <span>PASANG SEKARANG</span>
