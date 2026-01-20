@@ -1,3 +1,4 @@
+
 import React, { useState, useCallback } from 'react';
 import { AppTab, ServiceCategory, MainService, SubService } from './types';
 import { SERVICES } from './constants';
@@ -8,6 +9,7 @@ import ServiceDetail from './pages/ServiceDetail';
 import Tutorial from './pages/Tutorial';
 import TutorialDetail from './pages/TutorialDetail';
 import Profile from './pages/Profile';
+import InstallPrompt from './components/InstallPrompt';
 
 const App: React.FC = () => {
   const [activeTab, setActiveTab] = useState<AppTab>('Beranda');
@@ -97,6 +99,9 @@ const App: React.FC = () => {
         <div className="max-w-md mx-auto min-h-screen bg-slate-50 relative shadow-2xl">
           {renderContent()}
         </div>
+
+        {/* Notifikasi Shortcut Home Screen */}
+        <InstallPrompt />
 
         {/* Confirmation Modal for WhatsApp */}
         {isWhatsAppModalOpen && (
