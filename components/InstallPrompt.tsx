@@ -11,12 +11,10 @@ const InstallPrompt: React.FC = () => {
     const isIphone = /iphone|ipad|ipod/.test(userAgent);
     const isStandalone = (window.navigator as any).standalone || window.matchMedia('(display-mode: standalone)').matches;
     
-    // Jika sudah dibuka dari homescreen (mode standalone), jangan tampilkan prompt
     if (isStandalone) return;
 
     if (isIphone) {
       setIsIOS(true);
-      // Untuk iOS, tampilkan setelah 4 detik jika belum pernah di-dismiss
       const timer = setTimeout(() => {
         const dismissed = localStorage.getItem('jyp_prompt_dismissed');
         if (!dismissed) setIsVisible(true);
@@ -25,7 +23,7 @@ const InstallPrompt: React.FC = () => {
     }
 
     const handleBeforeInstallPrompt = (e: any) => {
-      // Mencegah browser menampilkan prompt instalasi sistem otomatis
+      // Mencegah browser menampilkan prompt otomatis agar kita bisa kontrol sendiri
       e.preventDefault();
       setDeferredPrompt(e);
       
@@ -39,22 +37,20 @@ const InstallPrompt: React.FC = () => {
     return () => window.removeEventListener('beforeinstallprompt', handleBeforeInstallPrompt);
   }, []);
 
-  const handleInstallClick = async () => {
+  const handleAddClick = async () => {
     if (!deferredPrompt) return;
     
-    // Memunculkan dialog "Tambah ke Layar Utama" bawaan browser
+    // Langsung munculkan prompt sistem "Tambah ke Layar Utama"
     deferredPrompt.prompt();
     
     const { outcome } = await deferredPrompt.userChoice;
-    if (outcome === 'accepted') {
-      setIsVisible(false);
-      setDeferredPrompt(null);
-    }
+    // Apapun pilihannya, hilangkan notifikasi kita setelah user berinteraksi dengan prompt sistem
+    setIsVisible(false);
+    setDeferredPrompt(null);
   };
 
   const handleDismiss = () => {
     setIsVisible(false);
-    // Simpan status agar tidak muncul kembali di sesi yang sama
     localStorage.setItem('jyp_prompt_dismissed', 'true');
   };
 
@@ -64,14 +60,14 @@ const InstallPrompt: React.FC = () => {
     <div className="fixed bottom-24 left-4 right-4 z-[99] animate-slideUp">
       <div className="bg-white rounded-[28px] shadow-[0_20px_60px_-15px_rgba(0,0,0,0.3)] border border-slate-100 p-5 flex flex-col space-y-4">
         <div className="flex items-center space-x-4">
-          <div className="w-14 h-14 bg-[#002B5B] rounded-2xl flex items-center justify-center text-white shrink-0 shadow-lg border-2 border-blue-50/10">
-            <i className="fa-solid fa-landmark text-2xl"></i>
+          <div className="w-12 h-12 bg-[#002B5B] rounded-2xl flex items-center justify-center text-white shrink-0 shadow-lg border-2 border-blue-50/10">
+            <i className="fa-solid fa-plus text-xl"></i>
           </div>
           
           <div className="flex-1">
-            <h4 className="text-[16px] font-black text-[#002B5B] leading-tight">Tambah ke Beranda</h4>
-            <p className="text-[11px] text-slate-500 mt-0.5 leading-relaxed font-medium">
-              Simpan akses cepat Layanan952 langsung dari layar utama HP Anda.
+            <h4 className="text-[15px] font-black text-[#002B5B] leading-tight">Layanan952 di Beranda</h4>
+            <p className="text-[11px] text-slate-500 mt-1 leading-relaxed font-medium">
+              Tambahkan shortcut ke layar utama HP Anda untuk akses instan.
             </p>
           </div>
           
@@ -90,25 +86,17 @@ const InstallPrompt: React.FC = () => {
                <span className="text-[9px] font-black uppercase tracking-tighter">Share</span>
             </div>
             <p className="text-[11px] text-blue-900 font-semibold leading-snug">
-              Klik tombol <span className="text-blue-600">'Share'</span> lalu pilih <span className="text-blue-600">'Add to Home Screen'</span>.
+              Klik <span className="text-blue-600">'Share'</span> lalu pilih <span className="text-blue-600">'Add to Home Screen'</span>.
             </p>
           </div>
         ) : (
-          <div className="flex items-center space-x-2">
-            <button 
-              onClick={handleDismiss}
-              className="flex-1 py-3.5 text-xs font-bold text-slate-400 bg-slate-50 rounded-2xl"
-            >
-              NANTI
-            </button>
-            <button 
-              onClick={handleInstallClick}
-              className="flex-[2] bg-[#002B5B] text-white py-3.5 rounded-2xl text-xs font-black shadow-xl active:scale-95 transition-all flex items-center justify-center space-x-2"
-            >
-              <i className="fa-solid fa-plus-square"></i>
-              <span>TAMBAH KE BERANDA</span>
-            </button>
-          </div>
+          <button 
+            onClick={handleAddClick}
+            className="w-full bg-[#002B5B] text-white py-4 rounded-2xl text-xs font-black shadow-xl active:scale-[0.98] transition-all flex items-center justify-center space-x-2"
+          >
+            <i className="fa-solid fa-square-plus"></i>
+            <span>TAMBAH KE BERANDA</span>
+          </button>
         )}
       </div>
       
