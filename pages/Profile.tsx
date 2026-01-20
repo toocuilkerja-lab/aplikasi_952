@@ -1,7 +1,6 @@
-
 import React from 'react';
 
-const Profile: React.FC<{ onOpenAdmin?: () => void }> = ({ onOpenAdmin }) => {
+const Profile: React.FC = () => {
   const socialLinks = [
     { handle: '@pajakjayapura', url: 'https://www.instagram.com/pajakjayapura/' },
     { handle: '@ditjenpajakri', url: 'https://www.instagram.com/ditjenpajakri/' },
@@ -13,8 +12,7 @@ const Profile: React.FC<{ onOpenAdmin?: () => void }> = ({ onOpenAdmin }) => {
       {/* Office Header Section */}
       <div className="flex flex-col items-center">
         <div 
-          onClick={onOpenAdmin}
-          className="w-28 h-28 bg-[#002B5B] rounded-3xl shadow-xl flex items-center justify-center mb-6 border-4 border-white transform -rotate-0 hover:rotate-3 transition-transform duration-300 cursor-pointer active:scale-95"
+          className="w-28 h-28 bg-[#002B5B] rounded-3xl shadow-xl flex items-center justify-center mb-6 border-4 border-white transform transition-transform duration-300"
         >
           <i className="fa-solid fa-landmark text-white text-5xl"></i>
         </div>
@@ -26,23 +24,6 @@ const Profile: React.FC<{ onOpenAdmin?: () => void }> = ({ onOpenAdmin }) => {
 
       {/* Info Cards */}
       <div className="space-y-4">
-        {/* Admin Access Card (New) */}
-        <button 
-          onClick={onOpenAdmin}
-          className="w-full bg-[#002B5B] text-white rounded-2xl p-4 shadow-lg flex items-center justify-between group active:scale-[0.98] transition-all"
-        >
-          <div className="flex items-center space-x-4 text-left">
-            <div className="w-10 h-10 bg-white/10 rounded-xl flex items-center justify-center shrink-0">
-              <i className="fa-solid fa-user-tie"></i>
-            </div>
-            <div>
-              <h4 className="text-[10px] font-bold text-blue-200 uppercase tracking-widest">Internal Use Only</h4>
-              <p className="text-sm font-bold">Panel Operator Antrian</p>
-            </div>
-          </div>
-          <i className="fa-solid fa-chevron-right text-blue-300 group-hover:translate-x-1 transition-all"></i>
-        </button>
-
         {/* Address Card */}
         <div className="bg-white rounded-2xl p-5 border border-slate-100 shadow-sm flex items-start space-x-4">
           <div className="w-10 h-10 bg-blue-50 text-blue-600 rounded-xl flex items-center justify-center shrink-0">

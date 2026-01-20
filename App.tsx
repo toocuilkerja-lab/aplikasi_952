@@ -1,4 +1,3 @@
-
 import React, { useState, useCallback } from 'react';
 import { AppTab, ServiceCategory, MainService, SubService } from './types';
 import { SERVICES } from './constants';
@@ -9,8 +8,6 @@ import ServiceDetail from './pages/ServiceDetail';
 import Tutorial from './pages/Tutorial';
 import TutorialDetail from './pages/TutorialDetail';
 import Profile from './pages/Profile';
-import Chat from './pages/Chat';
-import AdminQueue from './pages/AdminQueue';
 
 const App: React.FC = () => {
   const [activeTab, setActiveTab] = useState<AppTab>('Beranda');
@@ -18,7 +15,6 @@ const App: React.FC = () => {
   const [selectedSubService, setSelectedSubService] = useState<SubService | null>(null);
   const [selectedTutorialId, setSelectedTutorialId] = useState<string | null>(null);
   const [isWhatsAppModalOpen, setIsWhatsAppModalOpen] = useState(false);
-  const [isAdminMode, setIsAdminMode] = useState(false);
   
   const handleSelectService = (category: ServiceCategory) => {
     const service = SERVICES.find(s => s.id === category);
@@ -52,21 +48,6 @@ const App: React.FC = () => {
   }, []);
 
   const renderContent = () => {
-    if (isAdminMode) {
-      return (
-        <div>
-          <div className="bg-white p-4 border-b border-slate-200 flex items-center justify-between">
-            <button onClick={() => setIsAdminMode(false)} className="text-blue-600 font-bold flex items-center space-x-2">
-              <i className="fa-solid fa-arrow-left"></i>
-              <span>Kembali</span>
-            </button>
-            <span className="text-xs font-black text-slate-400 uppercase tracking-widest">Panel Petugas</span>
-          </div>
-          <AdminQueue />
-        </div>
-      );
-    }
-
     if (activeTab === 'Beranda') {
       if (selectedSubService) {
         return <ServiceDetail subService={selectedSubService} onBack={handleBackToServices} />;
@@ -84,17 +65,19 @@ const App: React.FC = () => {
         }
         return <Tutorial onSelectTutorial={handleSelectTutorial} />;
       case 'Profil':
-        return <Profile onOpenAdmin={() => setIsAdminMode(true)} />;
-      case 'Chat':
-        return <Chat onOpenWhatsApp={() => setIsWhatsAppModalOpen(true)} />;
+        return <Profile />;
       default:
         return <Home onSelectService={handleSelectService} />;
     }
   };
 
   const handleTabChange = (tab: AppTab) => {
+    if (tab === 'Chat') {
+      setIsWhatsAppModalOpen(true);
+      return; // Jangan pindah tab, cukup munculkan modal
+    }
+    
     setActiveTab(tab);
-    setIsAdminMode(false);
     if (tab !== 'Beranda') {
       setSelectedService(null);
       setSelectedSubService(null);
@@ -124,9 +107,9 @@ const App: React.FC = () => {
                 <div className="w-20 h-20 bg-green-100 text-green-600 rounded-full flex items-center justify-center mx-auto mb-6">
                   <i className="fa-brands fa-whatsapp text-4xl"></i>
                 </div>
-                <h3 className="text-lg font-bold text-slate-800 mb-2">Hubungi Admin</h3>
+                <h3 className="text-lg font-bold text-slate-800 mb-2">Layanan WhatsApp</h3>
                 <p className="text-sm text-slate-500 leading-relaxed mb-8">
-                  Apakah akan diteruskan ke admin kami melalui WhatsApp?
+                  Apakah ingin disambungkan ke layanan WhatsApp KPP Pratama Jayapura?
                 </p>
                 <div className="space-y-3">
                   <button 
