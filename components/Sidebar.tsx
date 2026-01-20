@@ -17,11 +17,11 @@ const Sidebar: React.FC<SidebarProps> = ({ currentView, onViewChange }) => {
   return (
     <div className="w-64 bg-white border-r border-slate-200 h-screen flex flex-col fixed left-0 top-0 z-50">
       <div className="p-6">
-        <div className="flex items-center space-x-2">
-          <div className="w-8 h-8 bg-indigo-600 rounded-lg flex items-center justify-center">
-            <span className="text-white font-bold text-xl">G</span>
+        <div className="flex items-center space-x-3">
+          <div className="w-10 h-10 bg-[#002B5B] rounded-xl flex items-center justify-center shadow-lg">
+            <i className="fa-solid fa-landmark text-white text-lg"></i>
           </div>
-          <span className="text-xl font-bold text-slate-800">GeminiApp</span>
+          <span className="text-xl font-black text-slate-800 tracking-tight">Layanan952</span>
         </div>
       </div>
       
@@ -32,26 +32,26 @@ const Sidebar: React.FC<SidebarProps> = ({ currentView, onViewChange }) => {
             onClick={() => onViewChange(item.id)}
             className={`w-full flex items-center space-x-3 px-4 py-3 rounded-xl transition-all duration-200 ${
               currentView === item.id 
-                ? 'bg-indigo-50 text-indigo-700 font-medium' 
+                ? 'bg-[#002B5B]/5 text-[#002B5B] font-bold' 
                 : 'text-slate-600 hover:bg-slate-50'
             }`}
           >
             <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d={item.icon} />
             </svg>
-            <span>{item.label}</span>
+            <span className="text-sm">{item.label}</span>
           </button>
         ))}
       </nav>
       
       <div className="p-4 border-t border-slate-100">
         <div className="flex items-center space-x-3 px-4 py-3">
-          <div className="w-8 h-8 rounded-full bg-slate-200 overflow-hidden">
+          <div className="w-8 h-8 rounded-full bg-slate-200 overflow-hidden border border-slate-100">
             <img src="https://picsum.photos/seed/user/32/32" alt="User" />
           </div>
           <div className="flex-1 min-w-0">
-            <p className="text-sm font-medium text-slate-900 truncate">Admin User</p>
-            <p className="text-xs text-slate-500 truncate">Pro Account</p>
+            <p className="text-xs font-bold text-slate-900 truncate">Petugas Layanan</p>
+            <p className="text-[10px] text-slate-500 truncate">KPP Pratama Jayapura</p>
           </div>
         </div>
       </div>

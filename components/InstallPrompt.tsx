@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect } from 'react';
 
 const InstallPrompt: React.FC = () => {
@@ -6,64 +7,64 @@ const InstallPrompt: React.FC = () => {
   const [isIOS, setIsIOS] = useState(false);
 
   useEffect(() => {
-    // 1. Deteksi iOS (karena iOS tidak mendukung beforeinstallprompt)
+    // Deteksi iOS
     const userAgent = window.navigator.userAgent.toLowerCase();
     const isIphone = /iphone|ipad|ipod/.test(userAgent);
     const isStandalone = (window.navigator as any).standalone || window.matchMedia('(display-mode: standalone)').matches;
     
-    if (isIphone && !isStandalone) {
-      setIsIOS(true);
-      // Tampilkan prompt untuk iOS setelah jeda singkat
-      const timer = setTimeout(() => setIsVisible(true), 3000);
-      return () => clearTimeout(timer);
-    }
+    setIsIOS(isIphone && !isStandalone);
 
-    // 2. Deteksi Android/Chrome (beforeinstallprompt)
     const handleBeforeInstallPrompt = (e: any) => {
-      // Mencegah browser menampilkan prompt bawaan segera
+      // Mencegah browser menampilkan prompt bawaan
       e.preventDefault();
-      // Simpan event agar bisa dipicu nanti
       setDeferredPrompt(e);
-      // Munculkan UI kustom kita
-      setIsVisible(true);
-      console.log('PWA: beforeinstallprompt event fired and captured');
-    };
+      
+      // Munculkan prompt jika belum di-dismiss baru-baru ini
+      const lastPromptTime = localStorage.getItem('pwa_last_prompt_time');
+      const now = new Date().getTime();
+      const oneDay = 24 * 60 * 60 * 1000;
 
-    const handleAppInstalled = () => {
-      console.log('PWA: App was installed successfully');
-      setIsVisible(false);
-      setDeferredPrompt(null);
+      if (!lastPromptTime || now - parseInt(lastPromptTime) > oneDay) {
+        setIsVisible(true);
+      }
     };
 
     window.addEventListener('beforeinstallprompt', handleBeforeInstallPrompt);
-    window.addEventListener('appinstalled', handleAppInstalled);
+
+    // Untuk iOS, munculkan panduan jika belum di-dismiss baru-baru ini
+    if (isIphone && !isStandalone) {
+      const lastPromptTime = localStorage.getItem('pwa_last_prompt_time');
+      const now = new Date().getTime();
+      const oneDay = 24 * 60 * 60 * 1000;
+
+      if (!lastPromptTime || now - parseInt(lastPromptTime) > oneDay) {
+        const timer = setTimeout(() => {
+          setIsVisible(true);
+        }, 3000);
+        return () => clearTimeout(timer);
+      }
+    }
 
     return () => {
       window.removeEventListener('beforeinstallprompt', handleBeforeInstallPrompt);
-      window.removeEventListener('appinstalled', handleAppInstalled);
     };
   }, []);
 
   const handleInstallClick = async () => {
-    if (!deferredPrompt) {
-      console.warn('PWA: No deferred prompt available');
-      return;
-    }
+    if (!deferredPrompt) return;
     
-    // Tampilkan prompt sistem browser
+    setIsVisible(false);
     deferredPrompt.prompt();
     
-    // Tunggu pilihan user
     const { outcome } = await deferredPrompt.userChoice;
-    console.log(`PWA: User choice outcome: ${outcome}`);
-    
-    // Reset deferredPrompt karena hanya bisa digunakan sekali
+    console.log(`User response: ${outcome}`);
     setDeferredPrompt(null);
-    setIsVisible(false);
   };
 
   const handleDismiss = () => {
     setIsVisible(false);
+    // Simpan waktu terakhir dismiss agar tidak mengganggu terlalu sering
+    localStorage.setItem('pwa_last_prompt_time', new Date().getTime().toString());
   };
 
   if (!isVisible) return null;
@@ -73,15 +74,13 @@ const InstallPrompt: React.FC = () => {
       <div className="bg-white rounded-[28px] shadow-[0_20px_60px_-15px_rgba(0,0,0,0.3)] border border-slate-100 p-5 flex flex-col space-y-4">
         <div className="flex items-center space-x-4">
           <div className="w-14 h-14 bg-[#002B5B] rounded-2xl flex items-center justify-center text-white shrink-0 shadow-lg border-2 border-blue-50/10">
-            <svg className="w-8 h-8" viewBox="0 0 512 512" fill="currentColor">
-              <path d="M256 64l224 112v32H32v-32L256 64zM64 448v-32h384v32H64zm320-208v144h-32V240h32zm-96 0v144h-32V240h32zm-96 0v144h-32V240h32zm-96 0v144h-32V240h32z" />
-            </svg>
+            <i className="fa-solid fa-landmark text-2xl"></i>
           </div>
           
           <div className="flex-1">
             <h4 className="text-[16px] font-black text-[#002B5B] leading-tight">Install Layanan952</h4>
             <p className="text-[11px] text-slate-500 mt-0.5 leading-relaxed font-medium">
-              Pasang aplikasi di layar utama untuk akses layanan lebih cepat dan stabil.
+              Akses cepat layanan kantor pajak Jayapura langsung dari layar utama HP Anda.
             </p>
           </div>
           
@@ -100,7 +99,7 @@ const InstallPrompt: React.FC = () => {
                <span className="text-[9px] font-black uppercase tracking-tighter">Share</span>
             </div>
             <p className="text-[11px] text-blue-900 font-semibold leading-snug">
-              Klik tombol <span className="text-blue-600">'Share'</span> di bagian bawah Safari, lalu pilih <span className="text-blue-600">'Add to Home Screen'</span>.
+              Klik tombol <span className="text-blue-600">'Share'</span> di Safari, lalu pilih <span className="text-blue-600">'Add to Home Screen'</span>.
             </p>
           </div>
         ) : (
@@ -113,8 +112,7 @@ const InstallPrompt: React.FC = () => {
             </button>
             <button 
               onClick={handleInstallClick}
-              disabled={!deferredPrompt}
-              className="flex-[2] bg-[#002B5B] text-white py-3.5 rounded-2xl text-xs font-black shadow-xl shadow-blue-900/20 active:scale-95 transition-all flex items-center justify-center space-x-2 disabled:opacity-50"
+              className="flex-[2] bg-[#002B5B] text-white py-3.5 rounded-2xl text-xs font-black shadow-xl shadow-blue-900/20 active:scale-95 transition-all flex items-center justify-center space-x-2"
             >
               <i className="fa-solid fa-download"></i>
               <span>PASANG SEKARANG</span>

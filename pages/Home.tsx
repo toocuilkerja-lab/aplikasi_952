@@ -1,3 +1,4 @@
+
 import React, { useEffect, useState } from 'react';
 import { SERVICES } from '../constants';
 import { ServiceCategory, QueueInfo } from '../types';
@@ -47,24 +48,34 @@ const Home: React.FC<{ onSelectService: (category: ServiceCategory) => void }> =
   const [queues, setQueues] = useState<QueueInfo[]>(INITIAL_DATA);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(false);
+  const [isOnline, setIsOnline] = useState(window.navigator.onLine);
+
+  const loadData = async (showLoading = true) => {
+    if (showLoading) setLoading(true);
+    try {
+      const data = await fetchQueueData();
+      setQueues(data);
+      setError(false);
+    } catch (err) {
+      setError(true);
+    } finally {
+      setLoading(false);
+    }
+  };
 
   useEffect(() => {
-    const loadData = async () => {
-      try {
-        const data = await fetchQueueData();
-        setQueues(data);
-        setError(false);
-      } catch (err) {
-        console.error("Home load error:", err);
-        setError(true);
-      } finally {
-        setLoading(false);
-      }
-    };
-
     loadData();
-    const interval = setInterval(loadData, 30000); // Sinkronisasi otomatis tiap 30 detik
-    return () => clearInterval(interval);
+    const interval = setInterval(() => loadData(false), 30000);
+    
+    const handleStatus = () => setIsOnline(window.navigator.onLine);
+    window.addEventListener('online', handleStatus);
+    window.addEventListener('offline', handleStatus);
+
+    return () => {
+      clearInterval(interval);
+      window.removeEventListener('online', handleStatus);
+      window.removeEventListener('offline', handleStatus);
+    };
   }, []);
 
   return (
@@ -82,10 +93,10 @@ const Home: React.FC<{ onSelectService: (category: ServiceCategory) => void }> =
       <div className="space-y-4">
         <div className="flex items-center justify-between">
           <h3 className="font-bold text-slate-800 text-lg">Status Antrian</h3>
-          <div className="flex items-center space-x-1">
-            <span className={`w-2 h-2 rounded-full ${loading ? 'bg-amber-400 animate-pulse' : (error ? 'bg-red-500' : 'bg-green-500')}`}></span>
-            <span className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">
-              {loading ? 'Sinkronisasi...' : (error ? 'Mode Offline' : 'Update setiap 30 detik')}
+          <div className="flex items-center space-x-1.5 bg-slate-100 px-2 py-1 rounded-full">
+            <span className={`w-1.5 h-1.5 rounded-full ${!isOnline ? 'bg-red-500' : (loading ? 'bg-amber-400 animate-pulse' : 'bg-green-500')}`}></span>
+            <span className="text-[9px] font-bold text-slate-500 uppercase tracking-widest">
+              {!isOnline ? 'OFFLINE' : (loading ? 'SYNCING' : 'LIVE')}
             </span>
           </div>
         </div>
@@ -95,8 +106,11 @@ const Home: React.FC<{ onSelectService: (category: ServiceCategory) => void }> =
             <QueueCard key={q.id} queue={q} />
           ))}
         </div>
-        {error && (
-          <p className="text-[10px] text-red-500 text-center font-medium">Gagal mengambil data dari Google Sheets. Menampilkan data terakhir yang tersimpan.</p>
+        {!isOnline && (
+          <div className="bg-red-50 border border-red-100 rounded-xl p-3 flex items-center space-x-2">
+            <i className="fa-solid fa-cloud-slash text-red-400 text-xs"></i>
+            <p className="text-[9px] text-red-600 font-bold uppercase tracking-tight">Koneksi terputus. Menampilkan data terakhir.</p>
+          </div>
         )}
       </div>
 
@@ -142,13 +156,7 @@ const Home: React.FC<{ onSelectService: (category: ServiceCategory) => void }> =
           <li className="flex items-start space-x-2">
             <div className="w-1.5 h-1.5 rounded-full bg-amber-400 mt-1.5 shrink-0"></div>
             <p className="text-[11px] text-amber-800 leading-relaxed">
-              Batas pelaporan SPT Tahunan PPh Orang Pribadi adalah <strong>31 Maret 2026</strong>. Segera laporkan sebelum terlambat!
-            </p>
-          </li>
-          <li className="flex items-start space-x-2">
-            <div className="w-1.5 h-1.5 rounded-full bg-amber-400 mt-1.5 shrink-0"></div>
-            <p className="text-[11px] text-amber-800 leading-relaxed">
-              Batas pelaporan SPT Tahunan Badan adalah <strong>30 April 2026</strong>. Segera laporkan sebelum terlambat!
+              Batas pelaporan SPT Tahunan PPh Orang Pribadi adalah <strong>31 Maret 2026</strong>.
             </p>
           </li>
         </ul>
