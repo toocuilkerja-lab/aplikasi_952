@@ -1,3 +1,4 @@
+
 {
   "name": "Layanan952",
   "short_name": "Layanan952",
@@ -9,19 +10,19 @@
   "orientation": "portrait",
   "icons": [
     {
-      "src": "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'%3E%3Crect width='512' height='512' rx='100' fill='%23002B5B'/%3E%3Cpath d='M256 160l128 72v136H128V232l128-72zm0-48L64 224v168h384V224L256 112z' fill='white'/%3E%3Cpath d='M224 256h64v112h-64z' fill='white'/%3E%3C/svg%3E",
+      "src": "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'%3E%3Crect width='512' height='512' fill='%23002B5B'/%3E%3Cpath d='M256 128l144 80v176H112V208l144-80zm0-48L48 200v224h416V200L256 80z' fill='white'/%3E%3Cpath d='M216 264h80v112h-80z' fill='white'/%3E%3C/svg%3E",
       "sizes": "192x192",
       "type": "image/svg+xml",
       "purpose": "any"
     },
     {
-      "src": "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'%3E%3Crect width='512' height='512' rx='100' fill='%23002B5B'/%3E%3Cpath d='M256 160l128 72v136H128V232l128-72zm0-48L64 224v168h384V224L256 112z' fill='white'/%3E%3Cpath d='M224 256h64v112h-64z' fill='white'/%3E%3C/svg%3E",
+      "src": "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'%3E%3Crect width='512' height='512' fill='%23002B5B'/%3E%3Cpath d='M256 128l144 80v176H112V208l144-80zm0-48L48 200v224h416V200L256 80z' fill='white'/%3E%3Cpath d='M216 264h80v112h-80z' fill='white'/%3E%3C/svg%3E",
       "sizes": "512x512",
       "type": "image/svg+xml",
       "purpose": "any"
     },
     {
-      "src": "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'%3E%3Crect width='512' height='512' rx='100' fill='%23002B5B'/%3E%3Cpath d='M256 160l128 72v136H128V232l128-72zm0-48L64 224v168h384V224L256 112z' fill='white'/%3E%3Cpath d='M224 256h64v112h-64z' fill='white'/%3E%3C/svg%3E",
+      "src": "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'%3E%3Crect width='512' height='512' fill='%23002B5B'/%3E%3Cpath d='M256 128l144 80v176H112V208l144-80zm0-48L48 200v224h416V200L256 80z' fill='white'/%3E%3Cpath d='M216 264h80v112h-80z' fill='white'/%3E%3C/svg%3E",
       "sizes": "512x512",
       "type": "image/svg+xml",
       "purpose": "maskable"

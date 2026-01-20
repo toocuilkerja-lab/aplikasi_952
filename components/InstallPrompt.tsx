@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect } from 'react';
 
 const InstallPrompt: React.FC = () => {
@@ -61,11 +62,11 @@ const InstallPrompt: React.FC = () => {
     <div className="fixed bottom-24 left-4 right-4 z-[99] animate-slideUp">
       <div className="bg-white rounded-[28px] shadow-[0_20px_60px_-15px_rgba(0,0,0,0.3)] border border-slate-100 p-5 flex flex-col space-y-4">
         <div className="flex items-center space-x-4">
-          {/* Ikon Landmark sesuai permintaan */}
+          {/* Ikon Landmark sesuai permintaan (Navy Blue Background, White Icon) */}
           <div className="w-14 h-14 bg-[#002B5B] rounded-2xl flex items-center justify-center text-white shrink-0 shadow-lg border-2 border-blue-50/10">
             <svg className="w-8 h-8" viewBox="0 0 512 512" fill="currentColor">
-              <path d="M256 160l128 72v136H128V232l128-72zm0-48L64 224v168h384V224L256 112z" />
-              <path d="M224 256h64v112h-64z" opacity="0.8" />
+              <path d="M256 128l144 80v176H112V208l144-80zm0-48L48 200v224h416V200L256 80z" />
+              <path d="M216 264h80v112h-80z" />
             </svg>
           </div>
           
