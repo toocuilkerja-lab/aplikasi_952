@@ -1,4 +1,3 @@
-
 import React, { useEffect, useState } from 'react';
 import { SERVICES } from '../constants';
 import { ServiceCategory, QueueInfo } from '../types';
@@ -56,7 +55,7 @@ const Home: React.FC<{ onSelectService: (category: ServiceCategory) => void }> =
     };
 
     loadData();
-    const interval = setInterval(loadData, 15000); // Sinkronisasi otomatis tiap 15 detik
+    const interval = setInterval(loadData, 30000); // Sinkronisasi otomatis tiap 30 detik
     return () => clearInterval(interval);
   }, []);
 
@@ -78,7 +77,7 @@ const Home: React.FC<{ onSelectService: (category: ServiceCategory) => void }> =
           <div className="flex items-center space-x-1">
             <span className={`w-2 h-2 rounded-full ${loading ? 'bg-amber-400 animate-pulse' : (error ? 'bg-red-500' : 'bg-green-500')}`}></span>
             <span className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">
-              {loading ? 'Sinkronisasi...' : (error ? 'Mode Offline' : 'Terhubung Live')}
+              {loading ? 'Sinkronisasi...' : (error ? 'Mode Offline' : 'Update setiap 30 detik')}
             </span>
           </div>
         </div>
@@ -129,7 +128,19 @@ const Home: React.FC<{ onSelectService: (category: ServiceCategory) => void }> =
           <li className="flex items-start space-x-2">
             <div className="w-1.5 h-1.5 rounded-full bg-amber-400 mt-1.5 shrink-0"></div>
             <p className="text-[11px] text-amber-800 leading-relaxed">
-              Batas pelaporan SPT Tahunan PPh Orang Pribadi adalah <strong>31 Maret 2026</strong>.
+              Jika Gabung NPWP istri ke Suami : <strong>Istri Ajukan Non-Aktif Sebelum 31 Maret 2026*</strong>
+            </p>
+          </li>
+          <li className="flex items-start space-x-2">
+            <div className="w-1.5 h-1.5 rounded-full bg-amber-400 mt-1.5 shrink-0"></div>
+            <p className="text-[11px] text-amber-800 leading-relaxed">
+              Batas pelaporan SPT Tahunan PPh Orang Pribadi adalah <strong>31 Maret 2026</strong>. Segera laporkan sebelum terlambat!
+            </p>
+          </li>
+          <li className="flex items-start space-x-2">
+            <div className="w-1.5 h-1.5 rounded-full bg-amber-400 mt-1.5 shrink-0"></div>
+            <p className="text-[11px] text-amber-800 leading-relaxed">
+              Batas pelaporan SPT Tahunan Badan adalah <strong>30 April 2026</strong>. Segera laporkan sebelum terlambat!
             </p>
           </li>
         </ul>

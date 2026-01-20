@@ -1,13 +1,4 @@
-
 import { GoogleGenAI } from "@google/genai";
-
-// Standard way to fix "Cannot find name 'process'" in Vite/React TS
-declare const process: {
-  env: {
-    API_KEY: string;
-    [key: string]: string;
-  };
-};
 
 function decodeBase64(base64: string) {
   const binaryString = atob(base64);
@@ -39,8 +30,14 @@ async function decodeAudioData(
 }
 
 export const playQueueAnnouncement = async (queueNumber: string, label: string) => {
+  const apiKey = process.env.API_KEY;
+  if (!apiKey) {
+    console.error("API_KEY not found in environment");
+    return false;
+  }
+
   try {
-    const ai = new GoogleGenAI({ apiKey: process.env.API_KEY });
+    const ai = new GoogleGenAI({ apiKey });
     
     // Pecah nomor agar penyebutan lebih jelas (misal: A042 -> A, nol, empat, dua)
     const letter = queueNumber.charAt(0);

@@ -1,12 +1,11 @@
-
 import { QueueInfo } from '../types';
 
 /**
  * DATABASE: GOOGLE SHEETS
- * SPREADSHEET_ID: 1P43tPasDu1FX2GfjruoPl4cEp4_-tEChr-9RblowwK8
+ * SPREADSHEET_ID: 1GMzLoSCc2ROpzRmeXbbOkwrS8nsJzF6mLJHXwEz8grg
  * Pengaturan: Pastikan Sheet "Anyone with the link can view"
  */
-const SPREADSHEET_ID = '1P43tPasDu1FX2GfjruoPl4cEp4_-tEChr-9RblowwK8';
+const SPREADSHEET_ID = '1GMzLoSCc2ROpzRmeXbbOkwrS8nsJzF6mLJHXwEz8grg';
 
 export const INITIAL_DATA: QueueInfo[] = [
   { id: 'A', label: 'Permohonan', description: '', current: 'A000', last: 'A000', color: 'bg-blue-600' },
