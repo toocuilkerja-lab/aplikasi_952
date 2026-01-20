@@ -11,17 +11,26 @@ const InstallPrompt: React.FC = () => {
     const isIphone = /iphone|ipad|ipod/.test(userAgent);
     const isStandalone = (window.navigator as any).standalone || window.matchMedia('(display-mode: standalone)').matches;
     
-    if (isIphone && !isStandalone) {
+    // Jika sudah dibuka dari homescreen (mode standalone), jangan tampilkan prompt
+    if (isStandalone) return;
+
+    if (isIphone) {
       setIsIOS(true);
-      const timer = setTimeout(() => setIsVisible(true), 4000);
+      // Untuk iOS, tampilkan setelah 4 detik jika belum pernah di-dismiss
+      const timer = setTimeout(() => {
+        const dismissed = localStorage.getItem('jyp_prompt_dismissed');
+        if (!dismissed) setIsVisible(true);
+      }, 4000);
       return () => clearTimeout(timer);
     }
 
     const handleBeforeInstallPrompt = (e: any) => {
+      // Mencegah browser menampilkan prompt instalasi sistem otomatis
       e.preventDefault();
       setDeferredPrompt(e);
-      // Tampilkan prompt jika belum terpasang
-      if (!isStandalone) {
+      
+      const dismissed = localStorage.getItem('jyp_prompt_dismissed');
+      if (!dismissed) {
         setIsVisible(true);
       }
     };
@@ -32,12 +41,21 @@ const InstallPrompt: React.FC = () => {
 
   const handleInstallClick = async () => {
     if (!deferredPrompt) return;
+    
+    // Memunculkan dialog "Tambah ke Layar Utama" bawaan browser
     deferredPrompt.prompt();
+    
     const { outcome } = await deferredPrompt.userChoice;
     if (outcome === 'accepted') {
       setIsVisible(false);
       setDeferredPrompt(null);
     }
+  };
+
+  const handleDismiss = () => {
+    setIsVisible(false);
+    // Simpan status agar tidak muncul kembali di sesi yang sama
+    localStorage.setItem('jyp_prompt_dismissed', 'true');
   };
 
   if (!isVisible) return null;
@@ -51,14 +69,14 @@ const InstallPrompt: React.FC = () => {
           </div>
           
           <div className="flex-1">
-            <h4 className="text-[16px] font-black text-[#002B5B] leading-tight">Install Layanan952</h4>
+            <h4 className="text-[16px] font-black text-[#002B5B] leading-tight">Tambah ke Beranda</h4>
             <p className="text-[11px] text-slate-500 mt-0.5 leading-relaxed font-medium">
-              Akses cepat tanpa browser. Muncul di daftar aplikasi Android Anda.
+              Simpan akses cepat Layanan952 langsung dari layar utama HP Anda.
             </p>
           </div>
           
           <button 
-            onClick={() => setIsVisible(false)}
+            onClick={handleDismiss}
             className="w-8 h-8 flex items-center justify-center text-slate-300 hover:text-slate-500 transition-colors"
           >
             <i className="fa-solid fa-xmark text-lg"></i>
@@ -72,23 +90,23 @@ const InstallPrompt: React.FC = () => {
                <span className="text-[9px] font-black uppercase tracking-tighter">Share</span>
             </div>
             <p className="text-[11px] text-blue-900 font-semibold leading-snug">
-              Klik <span className="text-blue-600">'Share'</span> lalu pilih <span className="text-blue-600">'Add to Home Screen'</span>.
+              Klik tombol <span className="text-blue-600">'Share'</span> lalu pilih <span className="text-blue-600">'Add to Home Screen'</span>.
             </p>
           </div>
         ) : (
           <div className="flex items-center space-x-2">
             <button 
-              onClick={() => setIsVisible(false)}
+              onClick={handleDismiss}
               className="flex-1 py-3.5 text-xs font-bold text-slate-400 bg-slate-50 rounded-2xl"
             >
               NANTI
             </button>
             <button 
               onClick={handleInstallClick}
-              className="flex-[2] bg-[#002B5B] text-white py-3.5 rounded-2xl text-xs font-black shadow-xl"
+              className="flex-[2] bg-[#002B5B] text-white py-3.5 rounded-2xl text-xs font-black shadow-xl active:scale-95 transition-all flex items-center justify-center space-x-2"
             >
-              <i className="fa-solid fa-download mr-2"></i>
-              INSTALL APLIKASI
+              <i className="fa-solid fa-plus-square"></i>
+              <span>TAMBAH KE BERANDA</span>
             </button>
           </div>
         )}
