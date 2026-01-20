@@ -1,8 +1,7 @@
-
 {
   "name": "layanan-kpp-jayapura",
   "private": true,
-  "version": "1.0.0",
+  "version": "1.0.3",
   "type": "module",
   "scripts": {
     "dev": "vite",
@@ -11,8 +10,8 @@
   },
   "dependencies": {
     "@google/genai": "^1.34.0",
-    "react": "^19.2.3",
-    "react-dom": "^19.2.3",
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0",
     "jspdf": "^2.5.1"
   },
   "devDependencies": {
