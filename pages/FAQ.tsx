@@ -478,26 +478,6 @@ const FAQ: React.FC = () => {
         )}
       </div>
 
-      {/* Footer Support */}
-      <div className="mt-12 px-6">
-        <div className="p-8 bg-slate-900 rounded-[40px] text-white relative overflow-hidden shadow-2xl">
-          <div className="relative z-10">
-            <h4 className="text-lg font-black mb-2">Butuh Bantuan Lebih?</h4>
-            <p className="text-xs text-slate-400 leading-relaxed mb-6 opacity-80">
-              Tim Helpdesk KPP Pratama Jayapura siap memandu Anda langkah demi langkah dalam menggunakan sistem Coretax.
-            </p>
-            <button 
-              onClick={() => window.open("https://wa.me/628114216899", "_blank")}
-              className="w-full bg-green-500 hover:bg-green-600 text-white font-black py-4 rounded-2xl shadow-xl shadow-green-900/40 flex items-center justify-center space-x-3 transition-all active:scale-95"
-            >
-              <i className="fa-brands fa-whatsapp text-lg"></i>
-              <span>HUBUNGI HELPDESK</span>
-            </button>
-          </div>
-          <i className="fa-solid fa-headset absolute -right-4 -bottom-4 text-white/5 text-[120px] -rotate-12"></i>
-        </div>
-      </div>
-
       <style>{`
         .no-scrollbar::-webkit-scrollbar {
           display: none;

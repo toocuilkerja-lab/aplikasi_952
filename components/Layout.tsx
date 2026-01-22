@@ -11,8 +11,8 @@ interface LayoutProps {
 const Layout: React.FC<LayoutProps> = ({ children, activeTab, setActiveTab }) => {
   const tabs: { id: AppTab; icon: string; label: string }[] = [
     { id: 'Beranda', icon: 'fa-home', label: 'Beranda' },
-    { id: 'Tutorial', icon: 'fa-book-open', label: 'Tutorial' },
-    { id: 'FAQ', icon: 'fa-circle-question', label: 'FAQ' },
+    { id: 'Materi SPT', icon: 'fa-book-open', label: 'Materi SPT' },
+    { id: 'Tutorial', icon: 'fa-graduation-cap', label: 'Tutorial' },
     { id: 'Chat', icon: 'fa-comments', label: 'Chat' },
     { id: 'Profil', icon: 'fa-user', label: 'Profil' },
   ];
