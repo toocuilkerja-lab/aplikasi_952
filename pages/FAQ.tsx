@@ -386,7 +386,7 @@ const FAQ: React.FC = () => {
           <h2 className="text-3xl font-black tracking-tight">
             CORETAX<span className="text-amber-400">PEDIA</span>
           </h2>
-          <p className="text-xs text-blue-200 mt-1 opacity-80 font-medium">Panduan Lengkap Sistem Administrasi Baru</p>
+          <p className="text-xs text-blue-200 mt-1 opacity-80 font-medium">Tempat Bertanya yang Selalu Siap Sedia</p>
           <p className="text-xs text-blue-200 mt-1 opacity-80 font-medium">https://www.pajak.go.id/coretaxpedia</p>
         </div>
         <i className="fa-solid fa-book-bookmark absolute -right-6 -bottom-6 text-white/5 text-9xl rotate-12"></i>
