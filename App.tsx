@@ -10,7 +10,6 @@ import Tutorial from './pages/Tutorial';
 import TutorialDetail from './pages/TutorialDetail';
 import FAQ from './pages/FAQ';
 import Profile from './pages/Profile';
-import Chat from './pages/Chat';
 import InstallPrompt from './components/InstallPrompt';
 
 const WhatsAppConfirmModal: React.FC<{ isOpen: boolean; onClose: () => void; onConfirm: () => void }> = ({ isOpen, onClose, onConfirm }) => {
@@ -96,13 +95,17 @@ const App: React.FC = () => {
     setSelectedTutorialId(null);
   }, []);
 
-  const handleOpenWhatsApp = () => {
-    setIsWhatsAppModalOpen(true);
-  };
-
   const confirmWhatsApp = () => {
     window.open("https://wa.me/628114216899", "_blank");
     setIsWhatsAppModalOpen(false);
+  };
+
+  const handleTabChange = (tab: AppTab) => {
+    if (tab === 'Chat') {
+      setIsWhatsAppModalOpen(true);
+    } else {
+      setActiveTab(tab);
+    }
   };
 
   const renderContent = () => {
@@ -124,8 +127,6 @@ const App: React.FC = () => {
         return <Tutorial onSelectTutorial={handleSelectTutorial} />;
       case 'Tutorial':
         return <FAQ />;
-      case 'Chat':
-        return <Chat onOpenWhatsApp={handleOpenWhatsApp} />;
       case 'Profil':
         return <Profile />;
       default:
@@ -134,7 +135,7 @@ const App: React.FC = () => {
   };
 
   return (
-    <Layout activeTab={activeTab} setActiveTab={setActiveTab}>
+    <Layout activeTab={activeTab} setActiveTab={handleTabChange}>
       {renderContent()}
       <InstallPrompt />
       <WhatsAppConfirmModal 
