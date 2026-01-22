@@ -9,9 +9,9 @@ const SPREADSHEET_ID = '1GMzLoSCc2ROpzRmeXbbOkwrS8nsJzF6mLJHXwEz8grg';
 
 export const INITIAL_DATA: QueueInfo[] = [
   { id: 'A', label: 'Permohonan', description: '', current: 'A000', last: 'A000', color: 'bg-blue-600', location: '-' },
-  { id: 'B', label: 'Coretax', description: '', current: 'B000', last: 'B000', color: 'bg-emerald-600', location: '-' },
-  { id: 'C', label: 'Helpdesk', description: '', current: 'C000', last: 'C000', color: 'bg-orange-500', location: '-' },
-  { id: 'D', label: 'Lainnya', description: '', current: 'D000', last: 'D000', color: 'bg-purple-600', location: '-' }
+  { id: 'B', label: 'Helpdesk', description: '', current: 'B000', last: 'B000', color: 'bg-emerald-600', location: '-' },
+  { id: 'C', label: 'SPT Tahunan OP', description: '', current: 'C000', last: 'C000', color: 'bg-orange-500', location: '-' },
+  { id: 'D', label: 'SPT Tahunan Badan', description: '', current: 'D000', last: 'D000', color: 'bg-purple-600', location: '-' }
 ];
 
 const formatQueueNumber = (val: any, prefix: string): string => {
