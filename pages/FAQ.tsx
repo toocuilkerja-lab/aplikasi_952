@@ -383,11 +383,9 @@ const FAQ: React.FC = () => {
       {/* Hero Header */}
       <div className="bg-[#002B5B] text-white p-8 pt-10 rounded-b-[40px] shadow-lg relative overflow-hidden">
         <div className="relative z-10">
-          <div className="flex items-center space-x-2 mb-2">
-             <i className="fa-solid fa-graduation-cap text-blue-400"></i>
-             <span className="text-[10px] font-bold uppercase tracking-[0.2em]">Ensiklopedia Pajak</span>
-          </div>
-          <h2 className="text-3xl font-black tracking-tight">CORETAXPEDIA</h2>
+          <h2 className="text-3xl font-black tracking-tight">
+            CORETAX<span className="text-amber-400">PEDIA</span>
+          </h2>
           <p className="text-xs text-blue-200 mt-1 opacity-80 font-medium">Panduan Lengkap Sistem Administrasi Baru</p>
         </div>
         <i className="fa-solid fa-book-bookmark absolute -right-6 -bottom-6 text-white/5 text-9xl rotate-12"></i>
