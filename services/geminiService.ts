@@ -2,13 +2,16 @@
 import { GoogleGenAI } from "@google/genai";
 
 export const sendMessageToGemini = async (message: string, base64Image?: string) => {
-  // Debugging log untuk memastikan API KEY tersedia di sisi browser
-  if (!process.env.API_KEY) {
-    console.error("DEBUG: API_KEY tidak terdeteksi di environment.");
+  const apiKey = process.env.API_KEY;
+
+  // Cek apakah API Key tersedia dan bukan string kosong atau placeholder
+  if (!apiKey || apiKey === "" || apiKey === "PLACEHOLDER_API_KEY") {
+    console.error("CRITICAL: API_KEY tidak terdeteksi di sisi klien.");
+    return "Konfigurasi Error: API_KEY belum terpasang di Vercel. Silakan cek Project Settings > Environment Variables di Dashboard Vercel, lalu REDEPLOY aplikasi Anda.";
   }
 
   try {
-    const ai = new GoogleGenAI({ apiKey: process.env.API_KEY });
+    const ai = new GoogleGenAI({ apiKey });
     
     const parts: any[] = [{ text: message }];
     
@@ -22,7 +25,6 @@ export const sendMessageToGemini = async (message: string, base64Image?: string)
       });
     }
 
-    // Perbaikan: contents HARUS berupa array [ { parts: [...] } ]
     const response = await ai.models.generateContent({
       model: 'gemini-3-flash-preview',
       contents: [{ parts }],
@@ -39,12 +41,15 @@ Penting: Selalu arahkan ke Helpdesk WhatsApp 08114216899 untuk kasus spesifik.`,
   } catch (error: any) {
     console.error("Gemini API Error Detail:", error);
     
-    // Penanganan error spesifik
-    if (error?.message?.includes("API_KEY_INVALID")) {
-      return "Kunci API tidak valid. Pastikan Environment Variable API_KEY sudah diset di Vercel.";
+    const errorMsg = error?.message || "";
+    if (errorMsg.includes("API_KEY_INVALID")) {
+      return "Kunci API tidak valid. Silakan periksa kembali API Key yang Anda masukkan di Vercel.";
+    }
+    if (errorMsg.includes("403") || errorMsg.includes("permission")) {
+      return "Akses ditolak (403). Pastikan API Key Anda memiliki izin untuk model Gemini 3 Flash.";
     }
     
-    return "Layanan AI sedang sibuk atau koneksi terputus. Mohon pastikan API KEY sudah terkonfigurasi di Dashboard Vercel.";
+    return "Terjadi kendala teknis pada layanan AI. Silakan coba beberapa saat lagi atau hubungi petugas via WhatsApp.";
   }
 };
 

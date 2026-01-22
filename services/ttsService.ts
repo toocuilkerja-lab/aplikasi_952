@@ -31,8 +31,14 @@ async function decodeAudioData(
 }
 
 export const playQueueAnnouncement = async (queueNumber: string, label: string) => {
+  const apiKey = process.env.API_KEY;
+  if (!apiKey || apiKey === "" || apiKey === "PLACEHOLDER_API_KEY") {
+    console.error("TTS: API_KEY missing");
+    return false;
+  }
+
   try {
-    const ai = new GoogleGenAI({ apiKey: process.env.API_KEY });
+    const ai = new GoogleGenAI({ apiKey });
     
     const letter = queueNumber.charAt(0);
     const digits = queueNumber.substring(1).split('').join(' ');
