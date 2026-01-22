@@ -1,5 +1,5 @@
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
 interface FAQItem {
   title: string;
@@ -21,6 +21,12 @@ interface FAQMenu {
 const FAQ: React.FC = () => {
   const [activeMenuId, setActiveMenuId] = useState('m1');
   const [searchTerm, setSearchTerm] = useState('');
+  const [openSubMenuIndex, setOpenSubMenuIndex] = useState<number | null>(null);
+
+  // Reset open submenu when changing main menu or searching
+  useEffect(() => {
+    setOpenSubMenuIndex(null);
+  }, [activeMenuId, searchTerm]);
 
   const coretaxData: FAQMenu[] = [
     {
@@ -105,7 +111,7 @@ const FAQ: React.FC = () => {
             { title: 'Siapa berhak mengubah data', url: 'https://pajak.go.id/coretaxpedia/siapa-berhak-mengubah-data' },
             { title: 'Ubah status menjadi aktif', url: 'https://pajak.go.id/coretaxpedia/ubah-status-menjadi-aktif' },
             { title: 'Bagaimana mengubah data', url: 'https://pajak.go.id/coretaxpedia/bagaimana-mengubah-data' },
-            { title: 'Ubah data masih tidak sesuai', url: 'https://pajak.go.id/coretaxpedia/ubah-data-masih-tidak-sesuai' },
+            { title: 'Ubah data masih tidak sesuai', url: 'https://pajak.go.id/coretaxpedia/ubah-data-masid-tidak-sesuai' },
             { title: 'Kewajiban pajak anggota keluarga', url: 'https://pajak.go.id/coretaxpedia/kewajiban-pajak-anggota-keluarga' },
             { title: 'Perubahan data di DJP Online', url: 'https://pajak.go.id/coretaxpedia/perubahan-data-di-djp-online' },
             { title: 'Pengajuan status nonaktif', url: 'https://pajak.go.id/coretaxpedia/pengajuan-status-nonaktif' },
@@ -368,6 +374,10 @@ const FAQ: React.FC = () => {
     )
   })).filter(sm => sm.items.length > 0);
 
+  const toggleSubMenu = (index: number) => {
+    setOpenSubMenuIndex(openSubMenuIndex === index ? null : index);
+  };
+
   return (
     <div className="min-h-screen bg-slate-50 pb-20 animate-fadeIn">
       {/* Hero Header */}
@@ -419,36 +429,46 @@ const FAQ: React.FC = () => {
         </div>
       </div>
 
-      {/* Content Area */}
-      <div className="px-6 mt-6 space-y-8">
+      {/* Content Area - SubMenus as Accordions */}
+      <div className="px-6 mt-6 space-y-4">
         {filteredSubMenus.length > 0 ? (
           filteredSubMenus.map((sm, smIdx) => (
-            <div key={smIdx} className="space-y-4">
-              <div className="flex items-center space-x-3 px-2">
-                <div className="w-1.5 h-6 bg-blue-600 rounded-full"></div>
-                <h3 className="text-sm font-black text-slate-800 uppercase tracking-wide">
-                  {sm.title}
-                </h3>
-              </div>
+            <div key={smIdx} className="bg-white rounded-[32px] border border-slate-100 shadow-sm overflow-hidden transition-all duration-300">
+              <button 
+                onClick={() => toggleSubMenu(smIdx)}
+                className="w-full p-6 text-left flex items-center justify-between group active:bg-slate-50 transition-colors"
+              >
+                <div className="flex items-center space-x-3">
+                  <div className={`w-1.5 h-6 rounded-full transition-colors ${openSubMenuIndex === smIdx ? 'bg-blue-600' : 'bg-slate-200'}`}></div>
+                  <h3 className={`text-sm font-black transition-colors uppercase tracking-wide ${openSubMenuIndex === smIdx ? 'text-blue-600' : 'text-slate-800'}`}>
+                    {sm.title}
+                  </h3>
+                </div>
+                <i className={`fa-solid fa-chevron-down text-xs transition-transform duration-300 ${openSubMenuIndex === smIdx ? 'rotate-180 text-blue-600' : 'text-slate-300'}`}></i>
+              </button>
               
-              <div className="space-y-3">
-                {sm.items.map((item, i) => (
-                  <button
-                    key={i}
-                    onClick={() => window.open(item.url, '_blank')}
-                    className="w-full bg-white p-5 rounded-3xl border border-slate-100 shadow-sm flex items-center justify-between group active:scale-[0.98] transition-all hover:border-blue-200"
-                  >
-                    <div className="flex items-start space-x-4">
-                      <div className="w-8 h-8 bg-blue-50 text-blue-600 rounded-xl flex items-center justify-center font-bold text-[10px] shrink-0 group-hover:bg-blue-600 group-hover:text-white transition-colors">
-                        {i + 1}
+              <div 
+                className={`overflow-hidden transition-all duration-300 ease-in-out ${openSubMenuIndex === smIdx ? 'max-h-[2000px] opacity-100 pb-6' : 'max-h-0 opacity-0'}`}
+              >
+                <div className="px-6 space-y-3">
+                  {sm.items.map((item, i) => (
+                    <button
+                      key={i}
+                      onClick={() => window.open(item.url, '_blank')}
+                      className="w-full bg-slate-50/50 p-5 rounded-[24px] border border-slate-50 shadow-sm flex items-center justify-between group active:scale-[0.98] transition-all hover:border-blue-100"
+                    >
+                      <div className="flex items-start space-x-4">
+                        <div className="w-8 h-8 bg-white text-blue-600 rounded-xl flex items-center justify-center font-bold text-[10px] shrink-0 border border-slate-100 group-hover:bg-blue-600 group-hover:text-white group-hover:border-blue-600 transition-colors">
+                          {i + 1}
+                        </div>
+                        <p className="text-sm font-bold text-slate-700 leading-snug pt-1 text-left">
+                          {item.title}
+                        </p>
                       </div>
-                      <p className="text-sm font-bold text-slate-700 leading-snug pt-1 text-left">
-                        {item.title}
-                      </p>
-                    </div>
-                    <i className="fa-solid fa-arrow-up-right-from-square text-[10px] text-slate-300 group-hover:text-blue-600 transition-colors ml-4"></i>
-                  </button>
-                ))}
+                      <i className="fa-solid fa-arrow-up-right-from-square text-[10px] text-slate-300 group-hover:text-blue-600 transition-colors ml-4"></i>
+                    </button>
+                  ))}
+                </div>
               </div>
             </div>
           ))
