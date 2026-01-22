@@ -32,10 +32,8 @@ async function decodeAudioData(
 
 export const playQueueAnnouncement = async (queueNumber: string, label: string) => {
   try {
-    // Inisialisasi SDK sesuai pedoman terbaru
     const ai = new GoogleGenAI({ apiKey: process.env.API_KEY });
     
-    // Pecah nomor agar penyebutan lebih jelas (misal: A042 -> A, nol, empat, dua)
     const letter = queueNumber.charAt(0);
     const digits = queueNumber.substring(1).split('').join(' ');
     const prompt = `Sebutkan dengan suara wanita yang ramah, sopan, dan profesional: "Nomor antrian, ${letter}, ${digits}, silakan menuju loket, ${label}"`;
