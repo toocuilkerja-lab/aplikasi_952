@@ -1,3 +1,4 @@
+
 import { GoogleGenAI } from "@google/genai";
 
 function decodeBase64(base64: string) {
@@ -30,14 +31,9 @@ async function decodeAudioData(
 }
 
 export const playQueueAnnouncement = async (queueNumber: string, label: string) => {
-  const apiKey = process.env.API_KEY;
-  if (!apiKey) {
-    console.error("API_KEY not found in environment");
-    return false;
-  }
-
   try {
-    const ai = new GoogleGenAI({ apiKey });
+    // Inisialisasi SDK sesuai pedoman terbaru
+    const ai = new GoogleGenAI({ apiKey: process.env.API_KEY });
     
     // Pecah nomor agar penyebutan lebih jelas (misal: A042 -> A, nol, empat, dua)
     const letter = queueNumber.charAt(0);
@@ -51,7 +47,7 @@ export const playQueueAnnouncement = async (queueNumber: string, label: string) 
         responseModalities: ["AUDIO"],
         speechConfig: {
           voiceConfig: {
-            prebuiltVoiceConfig: { voiceName: 'Kore' }, // Kore memiliki karakter suara wanita yang tenang dan sopan
+            prebuiltVoiceConfig: { voiceName: 'Kore' }, 
           },
         },
       },

@@ -1,13 +1,10 @@
+
 import { GoogleGenAI } from "@google/genai";
 
 export const sendMessageToGemini = async (message: string, base64Image?: string) => {
-  const apiKey = process.env.API_KEY;
-  if (!apiKey) {
-    return "Konfigurasi API_KEY tidak ditemukan. Mohon hubungi administrator.";
-  }
-
   try {
-    const ai = new GoogleGenAI({ apiKey });
+    // Inisialisasi SDK sesuai pedoman terbaru
+    const ai = new GoogleGenAI({ apiKey: process.env.API_KEY });
     
     const parts: any[] = [{ text: message }];
     
@@ -34,9 +31,12 @@ Penting: Selalu arahkan ke Helpdesk WhatsApp 08114216899 untuk kasus spesifik.`,
     });
 
     return response.text || "Maaf, terjadi kendala saat memproses jawaban.";
-  } catch (error) {
+  } catch (error: any) {
     console.error("Gemini API Error:", error);
-    return "Layanan AI sedang sibuk. Silakan coba beberapa saat lagi.";
+    if (error?.message?.includes("entity was not found")) {
+      return "Terjadi kesalahan otentikasi. Mohon segarkan halaman atau hubungi administrator.";
+    }
+    return "Layanan AI sedang sibuk atau kunci API belum siap. Silakan coba beberapa saat lagi.";
   }
 };
 
