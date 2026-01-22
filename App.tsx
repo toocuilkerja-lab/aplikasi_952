@@ -8,6 +8,7 @@ import ServiceList from './pages/ServiceList';
 import ServiceDetail from './pages/ServiceDetail';
 import Tutorial from './pages/Tutorial';
 import TutorialDetail from './pages/TutorialDetail';
+import FAQ from './pages/FAQ';
 import Profile from './pages/Profile';
 import InstallPrompt from './components/InstallPrompt';
 
@@ -66,6 +67,8 @@ const App: React.FC = () => {
           return <TutorialDetail tutorialId={selectedTutorialId} onBack={handleBackToTutorialList} />;
         }
         return <Tutorial onSelectTutorial={handleSelectTutorial} />;
+      case 'FAQ':
+        return <FAQ />;
       case 'Profil':
         return <Profile />;
       default:
@@ -76,7 +79,7 @@ const App: React.FC = () => {
   const handleTabChange = (tab: AppTab) => {
     if (tab === 'Chat') {
       setIsWhatsAppModalOpen(true);
-      return; // Jangan pindah tab, cukup munculkan modal
+      return; 
     }
     
     setActiveTab(tab);
