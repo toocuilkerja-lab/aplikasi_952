@@ -381,12 +381,13 @@ const FAQ: React.FC = () => {
   return (
     <div className="min-h-screen bg-slate-50 pb-20 animate-fadeIn">
       {/* Hero Header */}
-      <div className="bg-[#002B5B] text-white p-8 pt-10 rounded-b-[40px] shadow-lg relative overflow-hidden">
+      <div className="bg-[#002B5B] text-white p-8 pt-8 rounded-b-[40px] shadow-lg relative overflow-hidden">
         <div className="relative z-10">
           <h2 className="text-3xl font-black tracking-tight">
             CORETAX<span className="text-amber-400">PEDIA</span>
           </h2>
           <p className="text-xs text-blue-200 mt-1 opacity-80 font-medium">Panduan Lengkap Sistem Administrasi Baru</p>
+          <p className="text-xs text-blue-200 mt-1 opacity-80 font-medium">https://www.pajak.go.id/coretaxpedia</p>
         </div>
         <i className="fa-solid fa-book-bookmark absolute -right-6 -bottom-6 text-white/5 text-9xl rotate-12"></i>
       </div>
