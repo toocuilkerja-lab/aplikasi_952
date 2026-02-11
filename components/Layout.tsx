@@ -28,7 +28,7 @@ const Layout: React.FC<LayoutProps> = ({ children, activeTab, setActiveTab }) =>
             </div>
             <div className="flex flex-col">
               <h1 className="text-xl font-black uppercase tracking-tighter leading-none mb-1">PINANG JAYAPURA</h1>
-              <p className="text-[12px] text-blue-200 leading-tight font-medium uppercase">
+              <p className="text-[12px] text-blue-200 leading-tight font-medium ">
                 Portal INformasi PerpajakAN diGital<br/>
                 KPP PRATAMA JAYAPURA
               </p>
