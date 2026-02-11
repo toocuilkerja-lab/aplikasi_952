@@ -60,12 +60,6 @@ const Layout: React.FC<LayoutProps> = ({ children, activeTab, setActiveTab }) =>
             </div>
           </div>
           
-          <div className="flex items-center">
-            <button className="w-10 h-10 rounded-full bg-white/10 backdrop-blur-sm border border-white/20 flex items-center justify-center text-xl relative transition-all active:scale-90 hover:bg-white/20">
-              <i className="fa-solid fa-bell"></i>
-              <span className="absolute top-2 right-2 w-2.5 h-2.5 bg-red-500 rounded-full border-2 border-[#002B5B]"></span>
-            </button>
-          </div>
         </div>
       </header>
 
