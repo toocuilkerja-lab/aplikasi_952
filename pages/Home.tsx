@@ -71,7 +71,7 @@ const Home: React.FC<{ onSelectService: (category: ServiceCategory) => void }> =
     <div className="p-6 space-y-8 animate-fadeIn">
       <div className="bg-gradient-to-br from-[#003B7B] to-[#002B5B] rounded-2xl p-8 text-white shadow-xl relative overflow-hidden">
         <div className="relative z-10">
-          <h2 className="text-2xl font-bold mb-2">Selamat Datang!</h2>
+          <h2 className="text-xl font-bold mb-2">Selamat Datang!</h2>
           <p className="text-blue-100 text-sm opacity-90 leading-relaxed pr-2">
             Akses layanan perpajakan KPP Pratama Jayapura dengan lebih cepat dan mudah langsung dari genggaman Anda.
           </p>
