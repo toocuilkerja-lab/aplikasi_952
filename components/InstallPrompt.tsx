@@ -43,7 +43,7 @@ const InstallPrompt: React.FC = () => {
             </div>
             
             <div className="flex-1">
-              <h4 className="text-[15px] font-black text-[#002B5B] leading-tight">Akses Cepat Layanan952</h4>
+              <h4 className="text-[15px] font-black text-[#002B5B] leading-tight">Akses Cepat Pinang Jayapura</h4>
               <p className="text-[11px] text-slate-500 mt-1 leading-relaxed font-medium">
                 Simpan shortcut di layar utama untuk akses lebih praktis tanpa install.
               </p>

@@ -96,7 +96,7 @@ const App: React.FC = () => {
   }, []);
 
   const confirmWhatsApp = () => {
-    window.open("https://wa.me/628114216899", "_blank");
+    window.open("https://wa.me/6285246953952", "_blank");
     setIsWhatsAppModalOpen(false);
   };
 

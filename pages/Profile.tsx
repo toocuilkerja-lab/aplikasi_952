@@ -83,7 +83,7 @@ const Profile: React.FC = () => {
               08.00 S.D. 15.00 WIT
             </p>
             <p className="text-xs text-slate-500 mt-0.5 font-medium">
-              Senin s.d. Jumat (Kecuali Hari Libur Nasional)
+              Senin s.d. Jumat (Kecuali Hari Libur)
             </p>
           </div>
         </div>
