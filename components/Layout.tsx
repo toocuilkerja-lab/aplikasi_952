@@ -50,10 +50,10 @@ const Layout: React.FC<LayoutProps> = ({ children, activeTab, setActiveTab }) =>
                 PINANG JAYAPURA
               </h1>
               <div className="space-y-0.5 border-l-2 border-amber-400 pl-2">
-                <p className="text-[11px] text-blue-200 font-bold tracking-wide leading-tight drop-shadow-[0_1px_4px_rgba(0,0,0,0.5)]">
+                <p className="text-[13px] text-blue-200 font-bold tracking-wide leading-tight drop-shadow-[0_1px_4px_rgba(0,0,0,0.5)]">
                   Portal INformasi PerpajakAN diGital
                 </p>
-                <p className="text-[11px] text-blue-200 font-bold tracking-wide uppercase leading-tight drop-shadow-[0_1px_4px_rgba(0,0,0,0.5)]">
+                <p className="text-[13px] text-blue-200 font-bold tracking-wide uppercase leading-tight drop-shadow-[0_1px_4px_rgba(0,0,0,0.5)]">
                   KPP PRATAMA JAYAPURA
                 </p>
               </div>
