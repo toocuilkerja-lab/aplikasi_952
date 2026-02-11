@@ -17,42 +17,53 @@ const Layout: React.FC<LayoutProps> = ({ children, activeTab, setActiveTab }) =>
     { id: 'Profil', icon: 'fa-user', label: 'Profil' },
   ];
 
+  // Menggunakan direct link dari ImgBB untuk performa terbaik
+  const backgroundUrl = 'https://i.ibb.co.com/dwDLb46h/Pinang-by-nanobanana.png';
+
   return (
     <div className="flex flex-col min-h-screen bg-slate-50">
-      {/* Header with Custom Image Background & Overlay */}
+      {/* 
+        Header dengan Background Image dari ImgBB 
+        Dilapisi dengan gradient gelap agar teks tetap terbaca dengan jelas (Readability First)
+      */}
       <header 
-        className="relative text-white py-7 px-6 sticky top-0 z-50 shadow-md overflow-hidden"
+        className="relative text-white py-8 px-6 sticky top-0 z-50 shadow-[0_4px_20px_rgba(0,0,0,0.15)] overflow-hidden bg-[#002B5B]"
         style={{
-          backgroundColor: '#002B5B',
-          // Gunakan format direct link Google Drive agar gambar muncul sebagai background
-          backgroundImage: `linear-gradient(to bottom, rgba(0, 20, 40, 0.85), rgba(0, 43, 91, 0.75)), url('https://drive.google.com/uc?export=view&id=1R37mtdqDdhQ-DANxEXeRHTmfZJzxqe8B')`,
+          backgroundImage: `linear-gradient(to bottom, rgba(0, 20, 50, 0.85), rgba(0, 43, 91, 0.75)), url('${backgroundUrl}')`,
           backgroundSize: 'cover',
-          backgroundPosition: 'center'
+          backgroundPosition: 'center',
+          backgroundRepeat: 'no-repeat'
         }}
       >
+        {/* Subtle Pattern Overlay untuk tekstur tambahan */}
+        <div className="absolute inset-0 opacity-[0.05] pointer-events-none" style={{ backgroundImage: `url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='1'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")` }}></div>
+
         <div className="flex items-center justify-between relative z-10">
           <div className="flex items-center space-x-4">
-            <div className="bg-white/20 backdrop-blur-md p-1 rounded-2xl w-12 h-12 flex items-center justify-center border border-white/30 shadow-xl">
-              <i className="fa-solid fa-landmark text-white text-xl"></i>
+            {/* Glassmorphism Icon Container */}
+            <div className="bg-white/10 backdrop-blur-md p-2 rounded-2xl w-14 h-14 flex items-center justify-center border border-white/20 shadow-2xl">
+              <i className="fa-solid fa-landmark text-white text-2xl drop-shadow-sm"></i>
             </div>
+            
             <div className="flex flex-col">
-              <h1 className="text-2xl font-black uppercase tracking-tighter leading-none mb-2 drop-shadow-md">
+              <h1 className="text-2xl font-black uppercase tracking-tighter leading-none mb-2 drop-shadow-[0_2px_10px_rgba(0,0,0,0.5)]">
                 PINANG JAYAPURA
               </h1>
-              <div className="space-y-0.5">
-                <p className="text-[12px] text-white font-semibold tracking-wide uppercase opacity-95 drop-shadow-sm">
+              <div className="space-y-0.5 border-l-2 border-amber-400 pl-2">
+                <p className="text-[11px] text-blue-200 font-bold tracking-wide leading-tight drop-shadow-[0_1px_4px_rgba(0,0,0,0.5)]">
                   Portal INformasi PerpajakAN diGital
                 </p>
-                <p className="text-[12px] text-white font-semibold tracking-wide uppercase opacity-95 drop-shadow-sm">
+                <p className="text-[11px] text-blue-200 font-bold tracking-wide uppercase leading-tight drop-shadow-[0_1px_4px_rgba(0,0,0,0.5)]">
                   KPP PRATAMA JAYAPURA
                 </p>
               </div>
             </div>
           </div>
-          <div className="flex items-center space-x-4">
-            <button className="text-xl relative opacity-90 hover:opacity-100 transition-all active:scale-90">
+          
+          <div className="flex items-center">
+            <button className="w-10 h-10 rounded-full bg-white/10 backdrop-blur-sm border border-white/20 flex items-center justify-center text-xl relative transition-all active:scale-90 hover:bg-white/20">
               <i className="fa-solid fa-bell"></i>
-              <span className="absolute -top-1 -right-1 w-2.5 h-2.5 bg-red-500 rounded-full border-2 border-[#002B5B]"></span>
+              <span className="absolute top-2 right-2 w-2.5 h-2.5 bg-red-500 rounded-full border-2 border-[#002B5B]"></span>
             </button>
           </div>
         </div>
@@ -64,17 +75,22 @@ const Layout: React.FC<LayoutProps> = ({ children, activeTab, setActiveTab }) =>
       </main>
 
       {/* Bottom Navigation */}
-      <nav className="fixed bottom-0 left-0 right-0 bg-white border-t border-slate-200 flex justify-around py-3 px-2 safe-area-bottom shadow-[0_-4px_20px_rgba(0,0,0,0.05)] z-50">
+      <nav className="fixed bottom-0 left-0 right-0 bg-white border-t border-slate-200 flex justify-around py-3 px-2 safe-area-bottom shadow-[0_-8px_30px_rgba(0,0,0,0.08)] z-50">
         {tabs.map((tab) => (
           <button
             key={tab.id}
             onClick={() => setActiveTab(tab.id)}
-            className={`flex flex-col items-center flex-1 transition-all duration-300 ${
-              activeTab === tab.id ? 'text-[#002B5B] scale-110' : 'text-slate-400'
+            className={`flex flex-col items-center flex-1 transition-all duration-300 rounded-2xl py-1 ${
+              activeTab === tab.id ? 'text-[#002B5B] scale-105' : 'text-slate-400 opacity-60'
             }`}
           >
-            <i className={`fa-solid ${tab.icon} text-xl mb-1`}></i>
-            <span className="text-[10px] font-black uppercase tracking-tighter">{tab.label}</span>
+            <div className={`mb-1 transition-transform duration-300 ${activeTab === tab.id ? 'translate-y-[-2px]' : ''}`}>
+              <i className={`fa-solid ${tab.icon} text-xl`}></i>
+            </div>
+            <span className={`text-[10px] font-black uppercase tracking-tighter transition-all ${activeTab === tab.id ? 'opacity-100' : 'opacity-80'}`}>
+              {tab.label}
+            </span>
+            {activeTab === tab.id && <div className="w-1 h-1 bg-amber-400 rounded-full mt-0.5 shadow-sm shadow-amber-200"></div>}
           </button>
         ))}
       </nav>
