@@ -22,19 +22,19 @@ const TutorialDetail: React.FC<TutorialDetailProps> = ({ tutorialId, onBack }) =
                 <i className="fa-solid fa-star text-amber-400 mr-2"></i> Poin Penting (PP 55/2022)
               </h4>
               <ul className="space-y-4">
-                <InfoItem icon="fa-check" text="Ditujukan bagi Wajib Pajak yang dikenakan PPh bersifat final (UMKM 0,5%)." />
+                <InfoItem icon="fa-check" text="Ditujukan bagi Wajib Pajak yang dikenakan PPh bersifat final UMKM 0,5%." />
                 <InfoItem icon="fa-check" text="Rekapitulasi peredaran bruto diisi pada Lampiran 5 Bagian B." />
-                <InfoItem icon="fa-check" text="Jumlah PPh Final Bayar Sendiri dipindahkan otomatis ke Lampiran 4 Bagian A." />
-                <InfoItem icon="fa-check" text="Kode objek pajak yang digunakan adalah 28-423-99." />
+                <InfoItem icon="fa-check" text="Pengisian dilakukan mulai dari Induk SPT." />
+                <InfoItem icon="fa-check" text="Status SPT akhir adalah Nihil setelah validasi pembayaran mandiri." />
               </ul>
             </section>
 
             <section className="space-y-4">
-              <h4 className="font-bold text-slate-700 text-sm uppercase tracking-wide ml-2">Tahap Pengisian Utama</h4>
+              <h4 className="font-bold text-slate-700 text-sm uppercase tracking-wide ml-2">Skenario Pengisian</h4>
               <div className="space-y-4">
-                <StepCard num="1" title="Induk Bagian C" desc="Pilih 'Ya' pada pertanyaan penghasilan dengan Peredaran Bruto Tertentu Final." />
-                <StepCard num="2" title="Isi Lampiran 5" desc="Masukkan jumlah peredaran bruto bulanan per Tempat Kegiatan Usaha (TKU)." />
-                <StepCard num="3" title="Validasi Lampiran 4" desc="Isi DPP dan tarif 0,5% pada baris kode objek 28-423-99 melalui ikon pensil." />
+                <StepCard num="1" title="Login & Impersonate" desc="Buka coretaxdjp.pajak.go.id, login NIK/NPWP dan impersonate ke akun badan." />
+                <StepCard num="2" title="Induk Bagian C" desc="Pilih 'Ya' pada penghasilan peredaran bruto tertentu final." />
+                <StepCard num="3" title="Lampiran 5 & 4" desc="Isi rekap bruto bulanan di L5, lalu validasi DPP di Lampiran 4 Bagian A." />
               </div>
             </section>
           </div>
@@ -53,19 +53,19 @@ const TutorialDetail: React.FC<TutorialDetailProps> = ({ tutorialId, onBack }) =
                 <i className="fa-solid fa-university text-blue-500 mr-2"></i> Ketentuan Sektor Perbankan
               </h4>
               <ul className="space-y-4">
-                <InfoItem icon="fa-check" text="Menggunakan Lampiran Rekonsiliasi Laporan Keuangan L1-E." />
-                <InfoItem icon="fa-check" text="Pendapatan dan Beban Bunga bersih disajikan sesuai standar akuntansi keuangan." />
-                <InfoItem icon="fa-check" text="Koreksi fiskal dilakukan pada tiap akun (Komersial, Non Objek, Final, Positif/Negatif)." />
-                <InfoItem icon="fa-check" text="Wajib melampirkan laporan keuangan Audited." />
+                <InfoItem icon="fa-check" text="Menggunakan Lampiran L1-E Rekonsiliasi Laporan Keuangan Bank." />
+                <InfoItem icon="fa-check" text="Pendapatan dan Beban Bunga bersih disajikan sesuai standar akuntansi." />
+                <InfoItem icon="fa-check" text="Koreksi fiskal dilakukan langsung pada setiap akun pendapatan operasional." />
+                <InfoItem icon="fa-check" text="Laporan posisi keuangan (Neraca) wajib diisi lengkap." />
               </ul>
             </section>
 
             <section className="space-y-4">
               <h4 className="font-bold text-slate-700 text-sm uppercase tracking-wide ml-2">Langkah Pelaporan</h4>
               <div className="space-y-4">
-                <StepCard num="1" title="Pilih Sektor" desc="Pada Induk Bagian B, pilih 'Bank Konvensional' untuk mengaktifkan Lampiran L1-E." />
-                <StepCard num="2" title="Rekonsiliasi L1-E" desc="Input detail Pendapatan Bunga (4027/4028) dan Beban Bunga (4031/4033)." />
-                <StepCard num="3" title="Lampiran 11-B" desc="Input penghitungan Debt to Equity Ratio (DER) dan EBITDA jika relevan." />
+                <StepCard num="1" title="Aktifkan L1-E" desc="Pilih sektor usaha 'Bank Konvensional' pada Induk Bagian B." />
+                <StepCard num="2" title="Isi Laba Rugi" desc="Klik ikon pensil di L1-E untuk input Nilai Komersial dan Koreksi Fiskal." />
+                <StepCard num="3" title="Lampiran 11-B" desc="Input data DER (Debt to Equity Ratio) dan perhitungan EBITDA." />
               </div>
             </section>
           </div>
@@ -84,19 +84,19 @@ const TutorialDetail: React.FC<TutorialDetailProps> = ({ tutorialId, onBack }) =
                 <i className="fa-solid fa-industry text-slate-600 mr-2"></i> Detail Sektor Pabrikan
               </h4>
               <ul className="space-y-4">
-                <InfoItem icon="fa-check" text="Menggunakan Lampiran Rekonsiliasi L1-B khusus manufaktur." />
-                <InfoItem icon="fa-check" text="Detail Harga Pokok Produksi (HPP) mencakup bahan baku, tenaga kerja, dan pabrikasi." />
-                <InfoItem icon="fa-check" text="Penghitungan penyusutan aset tetap (Lampiran 9) menggunakan metode garis lurus." />
-                <InfoItem icon="fa-check" text="Koreksi fiskal dilakukan langsung pada tiap akun biaya produksi." />
+                <InfoItem icon="fa-check" text="Menggunakan Lampiran L1-B khusus manufaktur/pabrikan." />
+                <InfoItem icon="fa-check" text="Wajib mengisi detail Harga Pokok Produksi (HPP) mencakup bahan baku." />
+                <InfoItem icon="fa-check" text="Penyusutan aset tetap (Lampiran 9) menggunakan metode garis lurus." />
+                <InfoItem icon="fa-check" text="Biaya promosi (Rp500jt) dilaporkan pada Lampiran 11-A Bagian I." />
               </ul>
             </section>
 
             <section className="space-y-4">
               <h4 className="font-bold text-slate-700 text-sm uppercase tracking-wide ml-2">Panduan Pengisian</h4>
               <div className="space-y-4">
-                <StepCard num="1" title="Input HPP" desc="Isi Persediaan Awal/Akhir Bahan Baku (5021/5032) dan Barang Jadi (5008/5009)." />
-                <StepCard num="2" title="Beban Operasional" desc="Masukkan rincian Gaji (5311), Transportasi (5313), dan Amortisasi (5314)." />
-                <StepCard num="3" title="Lampiran 11-A" desc="Isi daftar nominatif biaya promosi (sebesar Rp500.000.000 sesuai skenario)." />
+                <StepCard num="1" title="L1-B Laba Rugi" desc="Isi Persediaan Awal/Akhir Bahan Baku dan Barang Jadi." />
+                <StepCard num="2" title="Koreksi Fiskal" desc="Input koreksi pada akun Beban Gaji, Transportasi, dan Amortisasi." />
+                <StepCard num="3" title="Lampiran 9" desc="Lengkapi daftar penyusutan Harta Berwujud Kelompok 1 & 2." />
               </div>
             </section>
           </div>
@@ -115,19 +115,19 @@ const TutorialDetail: React.FC<TutorialDetailProps> = ({ tutorialId, onBack }) =
                 <i className="fa-solid fa-handshake-angle text-emerald-500 mr-2"></i> Ketentuan Sektor Jasa
               </h4>
               <ul className="space-y-4">
-                <InfoItem icon="fa-check" text="Menggunakan Lampiran Rekonsiliasi L1-D untuk sektor usaha Jasa." />
+                <InfoItem icon="fa-check" text="Menggunakan Lampiran L1-D khusus sektor usaha Jasa." />
                 <InfoItem icon="fa-check" text="Pendapatan Jasa Rupiah diinput pada kode akun 4021." />
-                <InfoItem icon="fa-check" text="Memanfaatkan Fasilitas 31E (Pengurangan tarif 50% bagi omzet < 50 M)." />
-                <InfoItem icon="fa-check" text="Kredit pajak luar negeri dan dalam negeri diisi pada Lampiran 3." />
+                <InfoItem icon="fa-check" text="Fasilitas Pasal 31E diaktifkan pada Induk Bagian D jika omzet < 50 M." />
+                <InfoItem icon="fa-check" text="Kredit pajak PPh 23 Jasa dilaporkan pada Lampiran 3 Bagian B." />
               </ul>
             </section>
 
             <section className="space-y-4">
               <h4 className="font-bold text-slate-700 text-sm uppercase tracking-wide ml-2">Prosedur Coretax</h4>
               <div className="space-y-4">
-                <StepCard num="1" title="Lampiran L1-D" desc="Input Nilai Komersial Pendapatan Jasa dan Biaya Pokok Jasa (5020)." />
-                <StepCard num="2" title="Induk Bagian D" desc="Pilih 'Tarif Fasilitas Pasal 31E' pada poin 11 Tarif Pajak." />
-                <StepCard num="3" title="Lampiran 8" desc="Lengkapi jumlah peredaran bruto (misal Rp5.000.000.000) untuk hitung fasilitas." />
+                <StepCard num="1" title="Rekonsiliasi L1-D" desc="Input Nilai Komersial Pendapatan Jasa dan Biaya Pokok Jasa." />
+                <StepCard num="2" title="Induk Bagian D" desc="Pilih tarif fasilitas Pasal 31E dan lengkapi Lampiran 8." />
+                <StepCard num="3" title="Lampiran 3" desc="Input detail bukti potong dari lawan transaksi (NPWP, DPP, PPh)." />
               </div>
             </section>
           </div>

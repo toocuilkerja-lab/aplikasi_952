@@ -23,7 +23,7 @@ const Tutorial: React.FC<TutorialProps> = ({ onSelectTutorial }) => {
       title: 'SPT Tahunan PPh Badan (Peredaran Bruto Tertentu)',
       category: 'PPh Badan',
       version: '2025.09.17',
-      description: 'Materi edukasi pengisian SPT Tahunan PPh Badan khusus untuk Wajib Pajak dengan Peredaran Bruto Tertentu pada sistem Coretax.',
+      description: 'Materi edukasi pengisian SPT Tahunan PPh Badan khusus untuk Wajib Pajak dengan Peredaran Bruto Tertentu (PP 55/2022) pada sistem Coretax.',
       icon: 'fa-file-invoice-dollar',
     },
     {
@@ -31,7 +31,7 @@ const Tutorial: React.FC<TutorialProps> = ({ onSelectTutorial }) => {
       title: 'Tatacara Pelaporan SPT PPh Badan (Bank Konvensional)',
       category: 'PPh Badan',
       version: '2025.09.17',
-      description: 'Panduan lengkap langkah-langkah penyampaian SPT Tahunan PPh Badan khusus untuk sektor perbankan konvensional.',
+      description: 'Panduan lengkap langkah-langkah penyampaian SPT Tahunan PPh Badan khusus untuk sektor perbankan konvensional pada sistem Coretax.',
       icon: 'fa-building-columns',
     },
     {
@@ -39,7 +39,7 @@ const Tutorial: React.FC<TutorialProps> = ({ onSelectTutorial }) => {
       title: 'SPT Tahunan PPh Badan (Manufaktur)',
       category: 'PPh Badan',
       version: '2025.09.17',
-      description: 'Materi edukasi pengisian SPT Tahunan PPh Badan untuk sektor usaha manufaktur menggunakan aplikasi Coretax terbaru.',
+      description: 'Materi edukasi pengisian SPT Tahunan PPh Badan untuk sektor usaha manufaktur (Pabrikan) menggunakan aplikasi Coretax terbaru.',
       icon: 'fa-industry',
     },
     {
@@ -97,7 +97,7 @@ const Tutorial: React.FC<TutorialProps> = ({ onSelectTutorial }) => {
       ${item.description}
       
       ---
-      Dokumen ini dihasilkan secara otomatis oleh sistem pelayanan digital.
+      Dokumen ini dihasilkan secara otomatis oleh sistem pelayanan digital PINANG JAYAPURA.
       Silakan kunjungi coretaxdjp.pajak.go.id untuk panduan interaktif selengkapnya.
       © 2025 KPP Pratama Jayapura
     `;
@@ -122,8 +122,8 @@ const Tutorial: React.FC<TutorialProps> = ({ onSelectTutorial }) => {
   return (
     <div className="p-6 animate-fadeIn space-y-6">
       <div className="flex flex-col space-y-2">
-        <h2 className="text-xl font-bold text-slate-800">Pusat Edukasi Coretax</h2>
-        <p className="text-xs text-slate-500 font-medium">Materi resmi perpajakan KPP Pratama Jayapura</p>
+        <h2 className="text-xl font-bold text-slate-800">Materi SPT (Coretax)</h2>
+        <p className="text-xs text-slate-500 font-medium">Panduan resmi pelaporan perpajakan sistem terbaru</p>
       </div>
 
       {/* Search Bar */}
@@ -131,7 +131,7 @@ const Tutorial: React.FC<TutorialProps> = ({ onSelectTutorial }) => {
         <i className="fa-solid fa-magnifying-glass absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 text-sm"></i>
         <input 
           type="text" 
-          placeholder="Cari materi tutorial..."
+          placeholder="Cari judul materi..."
           className="w-full pl-10 pr-4 py-4 bg-white border border-slate-200 rounded-2xl text-sm focus:ring-2 focus:ring-blue-500 outline-none transition-all shadow-sm font-medium"
           value={searchTerm}
           onChange={(e) => setSearchTerm(e.target.value)}
@@ -171,7 +171,7 @@ const Tutorial: React.FC<TutorialProps> = ({ onSelectTutorial }) => {
 
                 <div className="mt-5 pt-4 border-t border-slate-50 flex items-center justify-between">
                   <div className="flex items-center text-slate-400 text-[10px] font-bold uppercase tracking-tighter">
-                    <i className="fa-solid fa-eye mr-1.5 text-blue-400"></i> BACA DETAIL
+                    <i className="fa-solid fa-eye mr-1.5 text-blue-400"></i> LIHAT RINGKASAN
                   </div>
                   <button 
                     onClick={(e) => handleDownload(item, e)}
@@ -191,11 +191,10 @@ const Tutorial: React.FC<TutorialProps> = ({ onSelectTutorial }) => {
         )}
       </div>
 
-      {/* Disclaimer */}
       <div className="p-5 bg-blue-50/50 border border-blue-100 rounded-[28px] flex items-start space-x-4">
         <i className="fa-solid fa-circle-info text-blue-500 mt-0.5"></i>
         <p className="text-[11px] text-blue-800 leading-relaxed font-medium">
-          <strong>Tip:</strong> Klik pada kartu untuk melihat ringkasan materi, atau klik tombol <strong>Unduh</strong> untuk menyimpan dokumen PDF ke perangkat Anda.
+          <strong>Info:</strong> Materi di atas merupakan ringkasan edukasi Coretax resmi v.2025.09.17. Gunakan fitur Unduh untuk mendapatkan salinan dokumen.
         </p>
       </div>
     </div>
