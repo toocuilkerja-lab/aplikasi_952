@@ -80,7 +80,7 @@ const Profile: React.FC = () => {
           <div className="flex-1">
             <h4 className="text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-1">Jam Pelayanan</h4>
             <p className="text-sm text-slate-700 font-bold">
-              08.00 S.D. 15.00 WIT
+              08.00 S.D. 16.00 WIT
             </p>
             <p className="text-xs text-slate-500 mt-0.5 font-medium">
               Senin s.d. Jumat (Kecuali Hari Libur)

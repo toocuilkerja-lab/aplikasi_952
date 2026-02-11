@@ -20,21 +20,24 @@ const Layout: React.FC<LayoutProps> = ({ children, activeTab, setActiveTab }) =>
   return (
     <div className="flex flex-col min-h-screen bg-slate-50">
       {/* Header */}
-      <header className="bg-[#002B5B] text-white py-4 px-6 sticky top-0 z-50 shadow-md">
+      <header className="bg-[#002B5B] text-white py-5 px-6 sticky top-0 z-50 shadow-md">
         <div className="flex items-center justify-between">
           <div className="flex items-center space-x-3">
-            <div className="bg-white p-1 rounded-full w-8 h-8 flex items-center justify-center">
-              <i className="fa-solid fa-landmark text-[#002B5B] text-sm"></i>
+            <div className="bg-white p-1 rounded-full w-10 h-10 flex items-center justify-center shadow-inner">
+              <i className="fa-solid fa-landmark text-[#002B5B] text-lg"></i>
             </div>
-            <div>
-              <h1 className="text-sm font-bold uppercase tracking-wider leading-none">KPP Pratama Jayapura</h1>
-              <span className="text-[10px] text-blue-200">Layanan Digital Perpajakan</span>
+            <div className="flex flex-col">
+              <h1 className="text-xl font-black uppercase tracking-tighter leading-none mb-1">PINANG JAYAPURA</h1>
+              <p className="text-[12px] text-blue-200 leading-tight font-medium uppercase">
+                Portal INformasi PerpajakAN diGital<br/>
+                KPP PRATAMA JAYAPURA
+              </p>
             </div>
           </div>
           <div className="flex items-center space-x-4">
-            <button className="text-xl relative">
+            <button className="text-xl relative opacity-80 hover:opacity-100 transition-opacity">
               <i className="fa-solid fa-bell"></i>
-              <span className="absolute -top-1 -right-1 w-2 h-2 bg-red-500 rounded-full"></span>
+              <span className="absolute -top-1 -right-1 w-2 h-2 bg-red-500 rounded-full border border-[#002B5B]"></span>
             </button>
           </div>
         </div>
@@ -51,12 +54,12 @@ const Layout: React.FC<LayoutProps> = ({ children, activeTab, setActiveTab }) =>
           <button
             key={tab.id}
             onClick={() => setActiveTab(tab.id)}
-            className={`flex flex-col items-center flex-1 transition-colors duration-200 ${
-              activeTab === tab.id ? 'text-[#002B5B]' : 'text-slate-400'
+            className={`flex flex-col items-center flex-1 transition-all duration-200 ${
+              activeTab === tab.id ? 'text-[#002B5B] scale-105' : 'text-slate-400'
             }`}
           >
             <i className={`fa-solid ${tab.icon} text-xl mb-1`}></i>
-            <span className="text-[10px] font-medium">{tab.label}</span>
+            <span className="text-[10px] font-bold uppercase tracking-tighter">{tab.label}</span>
           </button>
         ))}
       </nav>

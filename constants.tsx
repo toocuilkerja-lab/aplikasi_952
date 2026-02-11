@@ -27,23 +27,5 @@ export const SERVICES: MainService[] = [
       { id: 'pk1', title: '1. Permohonan Pengukuhan PKP' },
       { id: 'pk2', title: '2. Pencabutan PKP' },
     ]
-  },
-  {
-    id: 'e-Billing',
-    title: 'e-Billing',
-    icon: 'fa-file-invoice-dollar',
-    color: 'bg-orange-600',
-    items: [
-      { id: 'eb1', title: 'Pembuatan e-billing' },
-    ]
-  },
-  {
-    id: 'PBK',
-    title: 'PBK',
-    icon: 'fa-exchange-alt',
-    color: 'bg-purple-600',
-    items: [
-      { id: 'pbk1', title: 'Pemindahbukuan' },
-    ]
   }
 ];
