@@ -19,6 +19,7 @@ const Layout: React.FC<LayoutProps> = ({ children, activeTab, setActiveTab }) =>
 
   // Menggunakan direct link dari ImgBB untuk performa terbaik
   const backgroundUrl = 'https://i.ibb.co.com/dwDLb46h/Pinang-by-nanobanana.png';
+  const logoUrl = 'https://i.ibb.co.com/KphFD35S/logo-pinang2.png';
 
   return (
     <div className="flex flex-col min-h-screen bg-slate-50">
@@ -35,14 +36,15 @@ const Layout: React.FC<LayoutProps> = ({ children, activeTab, setActiveTab }) =>
           backgroundRepeat: 'no-repeat'
         }}
       >
-        {/* Subtle Pattern Overlay untuk tekstur tambahan */}
-        
-
         <div className="flex items-center justify-between relative z-10">
           <div className="flex items-center space-x-4">
-            {/* Glassmorphism Icon Container */}
-            <div className="bg-white/10 backdrop-blur-md p-2 rounded-2xl w-14 h-14 flex items-center justify-center border border-white/20 shadow-2xl">
-              <i className="fa-solid fa-landmark text-white text-2xl drop-shadow-sm"></i>
+            {/* Glassmorphism Icon Container dengan Logo Baru */}
+            <div className=" w-20 h-30 flex items-center justify-center border border-white/20 ">
+              <img 
+                src={logoUrl} 
+                alt="Logo Pinang" 
+                className="w-full h-full object-contain drop-shadow-sm"
+              />
             </div>
             
             <div className="flex flex-col">
