@@ -15,7 +15,7 @@ export interface MainService {
   items: SubService[];
 }
 
-export type AppTab = 'Beranda' | 'Materi SPT' | 'Tutorial' | 'Chat' | 'Profil';
+export type AppTab = 'Beranda' | 'Materi' | 'Tutorial' | 'Chat' | 'Profil';
 
 export interface QueueInfo {
   id: string;
