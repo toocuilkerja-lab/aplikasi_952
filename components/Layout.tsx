@@ -12,21 +12,17 @@ const Layout: React.FC<LayoutProps> = ({ children, activeTab, setActiveTab }) =>
   const tabs: { id: AppTab; icon: string; label: string }[] = [
     { id: 'Beranda', icon: 'fa-home', label: 'Beranda' },
     { id: 'Materi SPT', icon: 'fa-book-open', label: 'Materi' },
-    { id: 'Tutorial', icon: 'fa-graduation-cap', label: 'Tutorial' },
+    { id: 'Materi Coretax', icon: 'fa-laptop-code', label: 'Coretax' },
+    { id: 'FAQ', icon: 'fa-graduation-cap', label: 'FAQ' },
     { id: 'Chat', icon: 'fa-comments', label: 'Chat' },
     { id: 'Profil', icon: 'fa-user', label: 'Profil' },
   ];
 
-  // Menggunakan direct link dari ImgBB untuk performa terbaik
   const backgroundUrl = 'https://i.ibb.co.com/dwDLb46h/Pinang-by-nanobanana.png';
   const logoUrl = 'https://i.ibb.co.com/fGdx3pLJ/logo-pinang3.png';
 
   return (
     <div className="flex flex-col min-h-screen bg-slate-50">
-      {/* 
-        Header dengan Background Image dari ImgBB 
-        Dilapisi dengan gradient gelap agar teks tetap terbaca dengan jelas (Readability First)
-      */}
       <header 
         className="relative text-white py-8 px-6 sticky top-0 z-50 shadow-[0_4px_20px_rgba(0,0,0,0.15)] overflow-hidden bg-[#002B5B]"
         style={{
@@ -38,7 +34,6 @@ const Layout: React.FC<LayoutProps> = ({ children, activeTab, setActiveTab }) =>
       >
         <div className="flex items-center justify-between relative z-10">
           <div className="flex items-center space-x-4">
-            {/* Glassmorphism Icon Container dengan Logo Baru */}
             <div className="bg-white/10 backdrop-blur-md p-1.5 rounded-2xl w-20 h-20 flex items-center justify-center border border-white/20 shadow-2xl overflow-hidden">
               <img 
                 src={logoUrl} 
@@ -61,16 +56,13 @@ const Layout: React.FC<LayoutProps> = ({ children, activeTab, setActiveTab }) =>
               </div>
             </div>
           </div>
-          
         </div>
       </header>
 
-      {/* Main Content */}
       <main className="flex-1 pb-24 overflow-y-auto">
         {children}
       </main>
 
-      {/* Bottom Navigation */}
       <nav className="fixed bottom-0 left-0 right-0 bg-white border-t border-slate-200 flex justify-around py-3 px-2 safe-area-bottom shadow-[0_-8px_30px_rgba(0,0,0,0.08)] z-50">
         {tabs.map((tab) => (
           <button

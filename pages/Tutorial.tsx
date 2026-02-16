@@ -1,120 +1,104 @@
 
 import React, { useState } from 'react';
 
-interface TutorialItem {
+export interface TutorialItem {
   id: string;
   title: string;
   category: 'PPh Badan' | 'PPh Orang Pribadi';
   version: string;
   description: string;
   icon: string;
+  downloadUrl: string;
 }
 
 interface TutorialProps {
   onSelectTutorial: (id: string) => void;
 }
 
+export const TUTORIAL_DATA: TutorialItem[] = [
+  {
+    id: '1',
+    title: 'SPT Tahunan PPh Badan (Sektor Perdagangan)',
+    category: 'PPh Badan',
+    version: '2025.09.10',
+    description: 'Materi edukasi pengisian SPT Tahunan PPh Badan khusus untuk sektor usaha perdagangan pada sistem Coretax.',
+    icon: 'fa-file-pdf',
+    downloadUrl: 'https://drive.google.com/file/d/1zHhmTkBiA9-_18TmImAsqBfj750PyleH/view?usp=drive_link'
+  },
+  {
+    id: '5',
+    title: 'SPT Tahunan PPh Badan (Peredaran Bruto Tertentu / UMKM)',
+    category: 'PPh Badan',
+    version: '2025.09.17',
+    description: 'Materi edukasi pengisian SPT Tahunan PPh Badan khusus untuk Wajib Pajak dengan Peredaran Bruto Tertentu (UMKM - PP 55/2022) pada sistem Coretax.',
+    icon: 'fa-file-invoice-dollar',
+    downloadUrl: 'https://drive.google.com/file/d/1WMLAEBeYhm8Bmgy6QmCLqeRMke1jDzkg/view?usp=drive_link'
+  },
+  {
+    id: '6',
+    title: 'Tatacara Pelaporan SPT PPh Badan (Bank Konvensional)',
+    category: 'PPh Badan',
+    version: '2025.09.17',
+    description: 'Panduan lengkap langkah-langkah penyampaian SPT Tahunan PPh Badan khusus untuk sektor perbankan konvensional pada sistem Coretax.',
+    icon: 'fa-building-columns',
+    downloadUrl: 'https://drive.google.com/file/d/18DdpN37Mnyi8EcPRa3UrDFXwxX4ghpsw/view?usp=sharing'
+  },
+  {
+    id: '7',
+    title: 'SPT Tahunan PPh Badan (Manufaktur)',
+    category: 'PPh Badan',
+    version: '2025.09.17',
+    description: 'Materi edukasi pengisian SPT Tahunan PPh Badan untuk sektor usaha manufaktur (Pabrikan) menggunakan aplikasi Coretax terbaru.',
+    icon: 'fa-industry',
+    downloadUrl: 'https://drive.google.com/file/d/1u_sGTZ8DsR2ZyTaYQ2wTZy7mCDyQYfqh/view?usp=sharing'
+  },
+  {
+    id: '8',
+    title: 'Tatacara Pelaporan SPT PPh Badan (Sektor Jasa)',
+    category: 'PPh Badan',
+    version: '2025.09.17',
+    description: 'Langkah-langkah persiapan draft dan pengisian induk SPT Tahunan PPh Badan bagi Wajib Pajak yang bergerak di sektor jasa.',
+    icon: 'fa-handshake-angle',
+    downloadUrl: 'https://drive.google.com/file/d/1fLwrOrtLYmMD1OFG0N27QHwMPetlevHw/view?usp=drive_link'
+  },
+  {
+    id: '3',
+    title: 'SPT Tahunan OP Penghasilan Bruto Tertentu',
+    category: 'PPh Orang Pribadi',
+    version: '2025.09.10',
+    description: 'Langkah-langkah persiapan draft dan pengisian induk SPT Tahunan untuk Wajib Pajak Orang Pribadi dengan Penghasilan Bruto Tertentu (UMKM).',
+    icon: 'fa-user-tag',
+    downloadUrl: 'https://drive.google.com/file/d/1Crb-HxetUptsEL_2udgqj4yNXeO5AREF/view?usp=drive_link'
+  },
+  {
+    id: '9',
+    title: 'SPT Tahunan OP Pekerjaan Bebas (NPPN)',
+    category: 'PPh Orang Pribadi',
+    version: '2025.10.24',
+    description: 'Panduan pelaporan SPT Tahunan PPh Wajib Pajak Orang Pribadi Pekerjaan Bebas dengan Norma Penghitungan Penghasilan Neto (NPPN).',
+    icon: 'fa-user-doctor',
+    downloadUrl: 'https://drive.google.com/file/d/1pUL-q72e0PL0yG71W4dwPPlZs6PAfvnj/view?usp=drive_link'
+  },
+  {
+    id: '4',
+    title: 'Tata Cara Pelaporan SPT OP Karyawan',
+    category: 'PPh Orang Pribadi',
+    version: '2025.09.10',
+    description: 'Panduan praktis pelaporan SPT Tahunan bagi karyawan menggunakan aplikasi Coretax terbaru.',
+    icon: 'fa-id-badge',
+    downloadUrl: 'https://drive.google.com/file/d/16vQfPaJk6pp4iYQ_2DjJ9ytGvGFV_w1F/view?usp=drive_link'
+  }
+];
+
 const Tutorial: React.FC<TutorialProps> = ({ onSelectTutorial }) => {
   const [searchTerm, setSearchTerm] = useState('');
 
-  const tutorials: TutorialItem[] = [
-    {
-      id: '5',
-      title: 'SPT Tahunan PPh Badan (Peredaran Bruto Tertentu)',
-      category: 'PPh Badan',
-      version: '2025.09.17',
-      description: 'Materi edukasi pengisian SPT Tahunan PPh Badan khusus untuk Wajib Pajak dengan Peredaran Bruto Tertentu (PP 55/2022) pada sistem Coretax.',
-      icon: 'fa-file-invoice-dollar',
-    },
-    {
-      id: '6',
-      title: 'Tatacara Pelaporan SPT PPh Badan (Bank Konvensional)',
-      category: 'PPh Badan',
-      version: '2025.09.17',
-      description: 'Panduan lengkap langkah-langkah penyampaian SPT Tahunan PPh Badan khusus untuk sektor perbankan konvensional pada sistem Coretax.',
-      icon: 'fa-building-columns',
-    },
-    {
-      id: '7',
-      title: 'SPT Tahunan PPh Badan (Manufaktur)',
-      category: 'PPh Badan',
-      version: '2025.09.17',
-      description: 'Materi edukasi pengisian SPT Tahunan PPh Badan untuk sektor usaha manufaktur (Pabrikan) menggunakan aplikasi Coretax terbaru.',
-      icon: 'fa-industry',
-    },
-    {
-      id: '8',
-      title: 'Tatacara Pelaporan SPT PPh Badan (Sektor Jasa)',
-      category: 'PPh Badan',
-      version: '2025.09.17',
-      description: 'Langkah-langkah persiapan draft dan pengisian induk SPT Tahunan PPh Badan bagi Wajib Pajak yang bergerak di sektor jasa.',
-      icon: 'fa-handshake-angle',
-    },
-    {
-      id: '1',
-      title: 'SPT Tahunan PPh Badan (Sektor Perdagangan)',
-      category: 'PPh Badan',
-      version: '2025.09.10',
-      description: 'Materi edukasi pengisian SPT Tahunan PPh Badan khusus untuk sektor usaha perdagangan pada sistem Coretax.',
-      icon: 'fa-file-pdf',
-    },
-    {
-      id: '2',
-      title: 'Pengenalan Induk & Lampiran SPT Tahunan Badan',
-      category: 'PPh Badan',
-      version: '2025.08.19',
-      description: 'Panduan mendalam mengenai struktur formulir induk dan rincian lampiran (L1-L14) untuk Wajib Pajak Badan.',
-      icon: 'fa-book',
-    },
-    {
-      id: '3',
-      title: 'SPT Tahunan PPh Orang Pribadi',
-      category: 'PPh Orang Pribadi',
-      version: '2025.09.10',
-      description: 'Langkah-langkah persiapan draft dan pengisian induk SPT Tahunan untuk Wajib Pajak Orang Pribadi.',
-      icon: 'fa-user-gear',
-    },
-    {
-      id: '4',
-      title: 'Tata Cara Pelaporan SPT OP Karyawan',
-      category: 'PPh Orang Pribadi',
-      version: '2025.09.10',
-      description: 'Panduan praktis pelaporan SPT Tahunan bagi karyawan menggunakan aplikasi Coretax terbaru.',
-      icon: 'fa-id-badge',
-    }
-  ];
-
   const handleDownload = (item: TutorialItem, e: React.MouseEvent) => {
     e.stopPropagation(); 
-    const simulatedContent = `
-      MATERI EDUKASI CORETAX - KPP PRATAMA JAYAPURA
-      ============================================
-      Judul: ${item.title}
-      Kategori: ${item.category}
-      Versi: ${item.version}
-      
-      DESKRIPSI:
-      ${item.description}
-      
-      ---
-      Dokumen ini dihasilkan secara otomatis oleh sistem pelayanan digital PINANG JAYAPURA.
-      Silakan kunjungi coretaxdjp.pajak.go.id untuk panduan interaktif selengkapnya.
-      © 2025 KPP Pratama Jayapura
-    `;
-
-    const blob = new Blob([simulatedContent], { type: 'application/pdf' });
-    const url = URL.createObjectURL(blob);
-    const link = document.createElement('a');
-    link.href = url;
-    const fileName = item.title.replace(/[^a-z0-9]/gi, '_').toLowerCase();
-    link.download = `Materi_${fileName}_v${item.version}.pdf`;
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
-    URL.revokeObjectURL(url);
+    window.open(item.downloadUrl, '_blank');
   };
 
-  const filteredTutorials = tutorials.filter(t => 
+  const filteredTutorials = TUTORIAL_DATA.filter(t => 
     t.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
     t.category.toLowerCase().includes(searchTerm.toLowerCase())
   );
@@ -126,7 +110,6 @@ const Tutorial: React.FC<TutorialProps> = ({ onSelectTutorial }) => {
         <p className="text-xs text-slate-500 font-medium">Panduan resmi pelaporan perpajakan sistem terbaru</p>
       </div>
 
-      {/* Search Bar */}
       <div className="relative">
         <i className="fa-solid fa-magnifying-glass absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 text-sm"></i>
         <input 
@@ -138,7 +121,6 @@ const Tutorial: React.FC<TutorialProps> = ({ onSelectTutorial }) => {
         />
       </div>
 
-      {/* Tutorial List */}
       <div className="space-y-4">
         {filteredTutorials.length > 0 ? (
           filteredTutorials.map((item) => (
@@ -194,7 +176,7 @@ const Tutorial: React.FC<TutorialProps> = ({ onSelectTutorial }) => {
       <div className="p-5 bg-blue-50/50 border border-blue-100 rounded-[28px] flex items-start space-x-4">
         <i className="fa-solid fa-circle-info text-blue-500 mt-0.5"></i>
         <p className="text-[11px] text-blue-800 leading-relaxed font-medium">
-          <strong>Info:</strong> Materi di atas merupakan ringkasan edukasi Coretax resmi v.2025.09.17. Gunakan fitur Unduh untuk mendapatkan salinan dokumen.
+          <strong>Info:</strong> Materi di atas merupakan file edukasi Coretax resmi. Gunakan fitur Unduh untuk mendapatkan salinan dokumen PDF langsung dari Google Drive.
         </p>
       </div>
     </div>

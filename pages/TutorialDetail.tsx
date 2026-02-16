@@ -1,5 +1,6 @@
 
 import React from 'react';
+import { TUTORIAL_DATA } from './Tutorial';
 
 interface TutorialDetailProps {
   tutorialId: string;
@@ -7,6 +8,16 @@ interface TutorialDetailProps {
 }
 
 const TutorialDetail: React.FC<TutorialDetailProps> = ({ tutorialId, onBack }) => {
+  const tutorialItem = TUTORIAL_DATA.find(t => t.id === tutorialId);
+  
+  const handleDownloadManual = () => {
+    if (tutorialItem) {
+      window.open(tutorialItem.downloadUrl, '_blank');
+    } else {
+      window.open('https://drive.google.com/drive/folders/1ihcCLYoG3oC9Tl10I0LLYmd7xiHhi8kR?usp=sharing', '_blank');
+    }
+  };
+
   const renderContent = () => {
     switch (tutorialId) {
       case '5': // PPh Badan (Peredaran Bruto Tertentu)
@@ -163,6 +174,37 @@ const TutorialDetail: React.FC<TutorialDetailProps> = ({ tutorialId, onBack }) =
             </section>
           </div>
         );
+      
+      case '9': // Pekerjaan Bebas
+        return (
+          <div className="space-y-6">
+            <header className="space-y-2">
+              <span className="bg-indigo-100 text-indigo-700 text-[10px] font-black px-2 py-1 rounded uppercase tracking-wider">Edukasi Coretax v.2025.10.24</span>
+              <h3 className="text-xl font-black text-slate-800 uppercase leading-tight">SPT Tahunan OP - Pekerjaan Bebas (NPPN)</h3>
+            </header>
+
+            <section className="bg-white p-6 rounded-[32px] border border-slate-100 shadow-sm space-y-4">
+              <h4 className="font-bold text-slate-800 text-sm border-b pb-3 flex items-center uppercase tracking-wide">
+                <i className="fa-solid fa-user-doctor text-red-500 mr-2"></i> Pengguna Norma (NPPN)
+              </h4>
+              <ul className="space-y-4">
+                <InfoItem icon="fa-check" text="Wajib menyampaikan pemberitahuan penggunaan Norma (NPPN) paling lambat 3 bulan pertama tahun pajak." />
+                <InfoItem icon="fa-check" text="Menggunakan Lampiran L3-A untuk input penghasilan bruto dan persentase norma." />
+                <InfoItem icon="fa-check" text="Penghasilan neto dihitung otomatis berdasarkan perkalian Bruto x % Norma." />
+                <InfoItem icon="fa-check" text="Daftar harta dan kewajiban tetap wajib diisi lengkap." />
+              </ul>
+            </section>
+
+            <section className="space-y-4">
+              <h4 className="font-bold text-slate-700 text-sm uppercase tracking-wide ml-2">Prosedur Pelaporan</h4>
+              <div className="space-y-4">
+                <StepCard num="1" title="Akses Menu" desc="Pilih Modul SPT > SPT Tahunan Orang Pribadi > Periode Tahunan." />
+                <StepCard num="2" title="Bagian B Induk" desc="Pilih 'Ya' pada pertanyaan menggunakan Norma dalam menghitung neto." />
+                <StepCard num="3" title="Isi Lampiran 3-A" desc="Klik ikon pensil, masukkan nilai bruto setahun dan persentase norma sesuai PER-17/PJ/2015." />
+              </div>
+            </section>
+          </div>
+        );
 
       default:
         return (
@@ -190,6 +232,19 @@ const TutorialDetail: React.FC<TutorialDetailProps> = ({ tutorialId, onBack }) =
 
       <div className="p-6 pb-28">
         {renderContent()}
+
+        <div className="mt-8 pt-6 border-t border-slate-200">
+          <button 
+            onClick={handleDownloadManual}
+            className="w-full bg-indigo-600 text-white py-4 rounded-2xl text-xs font-black shadow-xl shadow-indigo-100 hover:bg-indigo-700 active:scale-[0.98] transition-all flex items-center justify-center space-x-3 uppercase tracking-widest"
+          >
+            <i className="fa-solid fa-cloud-arrow-down text-lg"></i>
+            <span>UNDUH FILE MATERI LENGKAP</span>
+          </button>
+          <p className="text-[10px] text-slate-400 text-center mt-3 italic">
+            *Mengunduh dokumen asli (PDF) dari folder Google Drive resmi.
+          </p>
+        </div>
       </div>
     </div>
   );

@@ -8,6 +8,8 @@ import ServiceList from './pages/ServiceList';
 import ServiceDetail from './pages/ServiceDetail';
 import Tutorial from './pages/Tutorial';
 import TutorialDetail from './pages/TutorialDetail';
+import MateriCoretax from './pages/MateriCoretax';
+import MateriCoretaxDetail from './pages/MateriCoretaxDetail';
 import FAQ from './pages/FAQ';
 import Profile from './pages/Profile';
 import InstallPrompt from './components/InstallPrompt';
@@ -44,15 +46,6 @@ const WhatsAppConfirmModal: React.FC<{ isOpen: boolean; onClose: () => void; onC
           </div>
         </div>
       </div>
-      <style>{`
-        @keyframes zoomIn {
-          from { transform: scale(0.9); opacity: 0; }
-          to { transform: scale(1); opacity: 1; }
-        }
-        .animate-zoomIn {
-          animation: zoomIn 0.3s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
-        }
-      `}</style>
     </div>
   );
 };
@@ -62,6 +55,7 @@ const App: React.FC = () => {
   const [selectedService, setSelectedService] = useState<MainService | null>(null);
   const [selectedSubService, setSelectedSubService] = useState<SubService | null>(null);
   const [selectedTutorialId, setSelectedTutorialId] = useState<string | null>(null);
+  const [selectedCoretaxId, setSelectedCoretaxId] = useState<string | null>(null);
   const [isWhatsAppModalOpen, setIsWhatsAppModalOpen] = useState(false);
   
   const handleSelectService = (category: ServiceCategory) => {
@@ -82,6 +76,11 @@ const App: React.FC = () => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
+  const handleSelectCoretax = (id: string) => {
+    setSelectedCoretaxId(id);
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
+
   const handleBackToServices = useCallback(() => {
     setSelectedSubService(null);
   }, []);
@@ -93,6 +92,10 @@ const App: React.FC = () => {
 
   const handleBackToTutorialList = useCallback(() => {
     setSelectedTutorialId(null);
+  }, []);
+
+  const handleBackToCoretaxList = useCallback(() => {
+    setSelectedCoretaxId(null);
   }, []);
 
   const confirmWhatsApp = () => {
@@ -125,7 +128,12 @@ const App: React.FC = () => {
           return <TutorialDetail tutorialId={selectedTutorialId} onBack={handleBackToTutorialList} />;
         }
         return <Tutorial onSelectTutorial={handleSelectTutorial} />;
-      case 'Tutorial':
+      case 'Materi Coretax':
+        if (selectedCoretaxId) {
+          return <MateriCoretaxDetail tutorialId={selectedCoretaxId} onBack={handleBackToCoretaxList} />;
+        }
+        return <MateriCoretax onSelectTutorial={handleSelectCoretax} />;
+      case 'FAQ':
         return <FAQ />;
       case 'Profil':
         return <Profile />;
