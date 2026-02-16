@@ -6,10 +6,8 @@ import Layout from './components/Layout';
 import Home from './pages/Home';
 import ServiceList from './pages/ServiceList';
 import ServiceDetail from './pages/ServiceDetail';
-import Tutorial from './pages/Tutorial';
 import TutorialDetail from './pages/TutorialDetail';
 import MateriCoretax from './pages/MateriCoretax';
-import MateriCoretaxDetail from './pages/MateriCoretaxDetail';
 import FAQ from './pages/FAQ';
 import Profile from './pages/Profile';
 import InstallPrompt from './components/InstallPrompt';
@@ -54,7 +52,6 @@ const App: React.FC = () => {
   const [activeTab, setActiveTab] = useState<AppTab>('Beranda');
   const [selectedService, setSelectedService] = useState<MainService | null>(null);
   const [selectedSubService, setSelectedSubService] = useState<SubService | null>(null);
-  const [selectedTutorialId, setSelectedTutorialId] = useState<string | null>(null);
   const [selectedCoretaxId, setSelectedCoretaxId] = useState<string | null>(null);
   const [isWhatsAppModalOpen, setIsWhatsAppModalOpen] = useState(false);
   
@@ -71,11 +68,6 @@ const App: React.FC = () => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
-  const handleSelectTutorial = (id: string) => {
-    setSelectedTutorialId(id);
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-  };
-
   const handleSelectCoretax = (id: string) => {
     setSelectedCoretaxId(id);
     window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -88,10 +80,6 @@ const App: React.FC = () => {
   const handleBackToHome = useCallback(() => {
     setSelectedService(null);
     setSelectedSubService(null);
-  }, []);
-
-  const handleBackToTutorialList = useCallback(() => {
-    setSelectedTutorialId(null);
   }, []);
 
   const handleBackToCoretaxList = useCallback(() => {
@@ -123,14 +111,9 @@ const App: React.FC = () => {
     }
 
     switch (activeTab) {
-      case 'Materi SPT':
-        if (selectedTutorialId) {
-          return <TutorialDetail tutorialId={selectedTutorialId} onBack={handleBackToTutorialList} />;
-        }
-        return <Tutorial onSelectTutorial={handleSelectTutorial} />;
       case 'Materi Coretax':
         if (selectedCoretaxId) {
-          return <MateriCoretaxDetail tutorialId={selectedCoretaxId} onBack={handleBackToCoretaxList} />;
+          return <TutorialDetail tutorialId={selectedCoretaxId} onBack={handleBackToCoretaxList} />;
         }
         return <MateriCoretax onSelectTutorial={handleSelectCoretax} />;
       case 'FAQ':

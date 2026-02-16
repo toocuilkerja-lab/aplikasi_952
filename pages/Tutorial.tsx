@@ -106,8 +106,8 @@ const Tutorial: React.FC<TutorialProps> = ({ onSelectTutorial }) => {
   return (
     <div className="p-6 animate-fadeIn space-y-6">
       <div className="flex flex-col space-y-2">
-        <h2 className="text-xl font-bold text-slate-800">Materi SPT (Coretax)</h2>
-        <p className="text-xs text-slate-500 font-medium">Panduan resmi pelaporan perpajakan sistem terbaru</p>
+        <h2 className="text-xl font-bold text-slate-800">Daftar Materi Edukasi</h2>
+        <p className="text-xs text-slate-500 font-medium">Panduan resmi pelaporan perpajakan sistem Coretax</p>
       </div>
 
       <div className="relative">
@@ -176,7 +176,7 @@ const Tutorial: React.FC<TutorialProps> = ({ onSelectTutorial }) => {
       <div className="p-5 bg-blue-50/50 border border-blue-100 rounded-[28px] flex items-start space-x-4">
         <i className="fa-solid fa-circle-info text-blue-500 mt-0.5"></i>
         <p className="text-[11px] text-blue-800 leading-relaxed font-medium">
-          <strong>Info:</strong> Materi di atas merupakan file edukasi Coretax resmi. Gunakan fitur Unduh untuk mendapatkan salinan dokumen PDF langsung dari Google Drive.
+          <strong>Info:</strong> Materi di atas merupakan file edukasi resmi. Gunakan fitur Unduh untuk mendapatkan salinan dokumen PDF dari Google Drive.
         </p>
       </div>
     </div>

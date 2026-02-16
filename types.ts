@@ -15,7 +15,7 @@ export interface MainService {
   items: SubService[];
 }
 
-export type AppTab = 'Beranda' | 'Materi SPT' | 'Materi Coretax' | 'FAQ' | 'Chat' | 'Profil';
+export type AppTab = 'Beranda' | 'Materi Coretax' | 'FAQ' | 'Chat' | 'Profil';
 
 export interface QueueInfo {
   id: string;
